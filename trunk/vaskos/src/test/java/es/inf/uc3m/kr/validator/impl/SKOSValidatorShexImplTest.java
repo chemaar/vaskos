@@ -43,7 +43,11 @@ public class SKOSValidatorShexImplTest {
 				"src/test/resources/skos/test/sources/accepted/s2.ttl",
 				"src/test/resources/skos/test/sources/accepted/s3.ttl",
 				"src/test/resources/skos/test/sources/accepted/s4.ttl",
-				"src/test/resources/skos/test/sources/accepted/s5.ttl"
+				"src/test/resources/skos/test/sources/accepted/s5.ttl",
+				"src/test/resources/skos/test/sources/accepted/s6.ttl",
+				//"src/test/resources/skos/test/sources/accepted/consistent-5.ttl", // Stackoverflow
+				"src/test/resources/skos/test/sources/accepted/consistent-6.ttl",
+				"src/test/resources/skos/test/sources/accepted/consistent-7.ttl"
 		};
 		SKOSValidatorShexImpl validator = new SKOSValidatorShexImpl(shexFile, iri);
 		for(int i = 0; i<rdfFiles.length;i++){

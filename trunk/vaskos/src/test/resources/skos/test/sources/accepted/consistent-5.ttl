@@ -4,10 +4,17 @@
 @prefix skos: <http://www.w3.org/2004/02/skos/core#>.
 @prefix : <http://example.org/>.
 
-:MyConcept rdf:type skos:Concept.
+#Stackoverflow
 
-:MyScheme rdf:type skos:ConceptScheme.
-:MyScheme skos:hasTopConcept :MyConcept.
+:MyScheme rdf:type skos:ConceptScheme ; 
+  skos:hasTopConcept :MyConcept . 
 
-:MyScheme2 rdf:type skos:ConceptScheme.
-:MyScheme2 skos:hasTopConcept :MyConcept.
+:MyConcept rdf:type skos:Concept . 
+
+:MyConcept skos:topConceptOf :MyScheme . 
+
+:AnotherConcept rdf:type skos:Concept . 
+:AnotherConcept skos:inScheme :MyScheme .
+
+
+

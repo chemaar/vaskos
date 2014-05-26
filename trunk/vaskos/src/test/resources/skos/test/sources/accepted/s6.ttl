@@ -5,9 +5,10 @@
 @prefix : <http://example.org/>.
 
 :MyConcept rdf:type skos:Concept.
+:MyConcept skos:inScheme :MyScheme.
 
 :MyScheme rdf:type skos:ConceptScheme.
-:MyScheme skos:hasTopConcept :MyConcept.
+
 
 :MyScheme2 rdf:type skos:ConceptScheme.
 :MyScheme2 skos:hasTopConcept :MyConcept.
