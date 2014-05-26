@@ -56,8 +56,8 @@ public class Test {
 	
 
 	public static void main(String[] args) throws IOException, URISyntaxException {
-		String sheXontent = readFile("src/main/resources/shex/issue.shex", StandardCharsets.UTF_8);
-		String rdfContent = readFile("src/main/resources/shex/issue.ttl", StandardCharsets.UTF_8);
+		String sheXontent = readFile("src/main/resources/shex/rules/issue.shex", StandardCharsets.UTF_8);
+		String rdfContent = readFile("src/main/resources/shex/sources/issue.ttl", StandardCharsets.UTF_8);
 		IRI iri = new IRI(new URI("http://example.org/x"));
 		Try<Tuple2<Schema, PrefixMap>> loaded = Schema.fromString(sheXontent);
 		Schema schema = loaded.get()._1;
