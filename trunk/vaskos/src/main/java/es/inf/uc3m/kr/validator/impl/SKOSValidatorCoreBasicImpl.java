@@ -2,6 +2,7 @@ package es.inf.uc3m.kr.validator.impl;
 
 import java.net.URI;
 
+import org.openrdf.rio.RDFFormat;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.IRI;
