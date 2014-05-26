@@ -41,6 +41,7 @@ public class SKOSValidatorShexImpl implements SKOSValidator{
 			RDF rdf = rdftriples.parse(rdfContent).get();
 			Result<Typing> result = Schema.matchSchema(iri, rdf, schema);
 			//showResult(Scala2Java.convertRestultsToJava(result));
+
 			System.out.println(result.isValid());
 
 			return result.isValid();

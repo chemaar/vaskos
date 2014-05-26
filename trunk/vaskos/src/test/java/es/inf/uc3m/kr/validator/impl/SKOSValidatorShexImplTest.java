@@ -39,10 +39,15 @@ public class SKOSValidatorShexImplTest {
 		String [] rdfFiles = new String []{
 				"src/test/resources/skos/test/sources/accepted/consistent-2.ttl",
 				"src/test/resources/skos/test/sources/accepted/consistent-3.ttl",
-				"src/test/resources/skos/test/sources/accepted/consistent-4.ttl"
+				"src/test/resources/skos/test/sources/accepted/consistent-4.ttl",
+				"src/test/resources/skos/test/sources/accepted/s2.ttl",
+				"src/test/resources/skos/test/sources/accepted/s3.ttl",
+				"src/test/resources/skos/test/sources/accepted/s4.ttl",
+				"src/test/resources/skos/test/sources/accepted/s5.ttl"
 		};
 		SKOSValidatorShexImpl validator = new SKOSValidatorShexImpl(shexFile, iri);
 		for(int i = 0; i<rdfFiles.length;i++){
+			System.out.println("Validating "+rdfFiles[i]);
 			Assert.assertTrue(validator.validate(rdfFiles[i]));
 		}
 
