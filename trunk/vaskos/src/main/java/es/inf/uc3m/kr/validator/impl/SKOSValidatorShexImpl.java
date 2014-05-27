@@ -24,7 +24,7 @@ public class SKOSValidatorShexImpl implements SKOSValidator{
 	private IRI iri;
 	private String shexRules;
 
-	public SKOSValidatorShexImpl(String shexFile,URI iri) throws IOException{
+	public SKOSValidatorShexImpl(String shexFile, URI iri) throws IOException{
 		this.shexFile = shexFile;
 		this.iri = new IRI (iri);
 		this.shexRules = FileUtils.readFile(this.shexFile, StandardCharsets.UTF_8);
