@@ -4,8 +4,13 @@
 @prefix skos: <http://www.w3.org/2004/02/skos/core#>.
 @prefix : <http://example.org/>.
 
-:MyConcept rdf:type skos:Concept.
-:MyConcept skos:prefLabel "Preferred label"@en.
-:MyConcept skos:prefLabel "Preferred label 2"@en.
-:MyConcept skos:prefLabel "Preferred label"@es.
-:MyConcept skos:prefLabel "Preferred label 2"@it.
+:MyResource rdf:type skos:Concept;
+  skos:prefLabel "animals"@en ; 
+  skos:altLabel "fauna"@en ; 
+  skos:hiddenLabel "aminals"@en ; 
+  skos:prefLabel "animaux"@fr ; 
+  skos:altLabel "faune"@fr .
+ 
+
+
+
