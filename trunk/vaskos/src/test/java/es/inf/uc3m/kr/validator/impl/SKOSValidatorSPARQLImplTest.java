@@ -33,4 +33,20 @@ public class SKOSValidatorSPARQLImplTest {
 		SKOSValidatorSPARQLImpl validator = new SKOSValidatorSPARQLImpl(sparqlFiles);
 		Assert.assertTrue(validator.validate(rdfFile));
 	}
+	
+	@Test
+	public void testAccept_14() throws IOException {
+		String rdfFile = "skos/test/sources/accepted/s14.ttl";
+		String[] sparqlFiles = new String []{"src/test/resources/skos/sparql/test/rules/s14.sparql"};
+		SKOSValidatorSPARQLImpl validator = new SKOSValidatorSPARQLImpl(sparqlFiles);
+		Assert.assertTrue(validator.validate(rdfFile));
+	}
+	
+	@Test
+	public void testReject_14() throws IOException {
+		String rdfFile = "skos/test/sources/rejected/rejected-s14.ttl";
+		String[] sparqlFiles = new String []{"src/test/resources/skos/sparql/test/rules/s14.sparql"};
+		SKOSValidatorSPARQLImpl validator = new SKOSValidatorSPARQLImpl(sparqlFiles);
+		Assert.assertFalse(validator.validate(rdfFile));
+	}
 }

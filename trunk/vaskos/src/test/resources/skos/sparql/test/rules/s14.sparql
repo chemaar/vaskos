@@ -1,0 +1,19 @@
+prefix skos:    <http://www.w3.org/2004/02/skos/core#>
+ASK WHERE{
+	{SELECT (count(?concept) as ?nconcepts) WHERE{
+			?concept a skos:Concept.
+		}
+	}
+	{SELECT (count(?concept) as ?vconcepts) WHERE{
+			 {
+				SELECT  ?concept (count(distinct ?lang) as ?dlangs) (count(?lang) as ?rlangs) WHERE{
+						?concept a skos:Concept.
+						?concept skos:prefLabel ?label.
+						 bind (lang(?label) as ?lang).
+				  } group by ?concept
+			 }
+			 FILTER (?dlangs = ?rlangs)
+		}
+	}
+	FILTER (?nconcepts = ?vconcepts).
+}
