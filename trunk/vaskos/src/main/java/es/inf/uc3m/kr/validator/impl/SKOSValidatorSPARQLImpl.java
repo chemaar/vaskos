@@ -15,7 +15,6 @@ import es.inf.uc3m.kr.validator.loader.ResourceLoader;
 import es.inf.uc3m.kr.validator.loader.VaskosModelWrapper;
 import es.inf.uc3m.kr.validator.utils.FileUtils;
 import es.inf.uc3m.kr.validator.utils.SPARQLUtils;
-import es.weso.rdfgraph.nodes.IRI;
 
 public class SKOSValidatorSPARQLImpl implements SKOSValidator{
 	

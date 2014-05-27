@@ -12,7 +12,8 @@ start = <SkosConceptShape>  # A scheme concept validation starts with <SkosConce
 <SkosConceptShape> {              						# An skos:Concept has:
  rdf:type (skos:Concept owl:Class owl:ObjectProperty)+, # type which is skos:Concept or/and OWL:Class
  skos:inScheme 		@<SkosConceptSchemeShape>*,					# and belongs to 0..n concept schemes,   
- skos:topConceptOf 	@<SkosConceptSchemeShape>*					# and can be top concept of 0..n schemes
+ skos:topConceptOf 	@<SkosConceptSchemeShape>*,				# and can be top concept of 0..n schemes
+ skos:broader 	    @<SkosConceptShape>*				# and can be top concept of 0..n schemes
 }
 
 <SkosConceptSchemeShape> { 				  #An skos:Concept Scheme has:

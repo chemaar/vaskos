@@ -1,0 +1,14 @@
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#>.
+@prefix : <http://example.org/>.
+
+:A rdf:type skos:Concept .
+:B rdf:type skos:Concept .
+
+:A skos:narrower :B.
+
+:MyScheme rdf:type skos:ConceptScheme.
+
+:A skos:inScheme :MyScheme.
+
+:B skos:inScheme :MyScheme.
