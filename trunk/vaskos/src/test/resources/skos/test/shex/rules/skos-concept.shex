@@ -25,10 +25,12 @@ start = <SkosConceptShape>  # A scheme concept validation starts with <SkosConce
  skos:example xsd:string*,
  skos:historyNote xsd:string*,
  skos:scopeNote xsd:string*,
+ skos:semanticRelation    @<SkosConceptShape>*,
  skos:broader 	    @<SkosConceptShape>*,				# and can have 0..1 broader elements
  skos:narrower 	    @<SkosConceptShape>*,			# and can have 0..n narrower elements
  skos:broaderTransitive 	    @<SkosConceptShape>*,				# and can have 0..1 broader elements
- skos:narrowerTransitive 	    @<SkosConceptShape>*			# and can have 0..n narrower elements
+ skos:narrowerTransitive 	    @<SkosConceptShape>*,		# and can have 0..n narrower elements
+ skos:related @<SkosConceptShape>*
 }
 
 

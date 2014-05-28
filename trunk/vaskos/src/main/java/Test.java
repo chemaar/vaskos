@@ -64,7 +64,7 @@ public class Test {
 		PrefixMap pm = loaded.get()._2;
 		RDFTriples rdftriples = new RDFTriples(null , pm);
 		RDF rdf = rdftriples.parse(rdfContent).get();
-		Result<Typing> result = Schema.matchSchema(iri, rdf, schema);
+		Result<Typing> result = Schema.matchSchema(iri, rdf, schema,true);
 		System.out.println(result.isValid());
 		java.util.List<java.util.Map<IRI, java.util.Set<IRI>>> results = Scala2Java.convertRestultsToJava(result);
 		for(java.util.Map<IRI, java.util.Set<IRI>> converted: results){

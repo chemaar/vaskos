@@ -173,7 +173,7 @@ public class SKOSValidatorShexImplTest {
 		}
 	}
 	
-	//@Test
+	@Test
 	public void testAccept_Consistent_5() {
 		try{
 			URI iri = new URI("http://example.org/MyConcept");
@@ -216,6 +216,7 @@ public class SKOSValidatorShexImplTest {
 	}
 	
 	//FIXME: Checked with SPARQL @Test
+	@Test
 	public void testAccept_Consistent_8() {
 		try{
 			URI iri = new URI("http://example.org/MyConcept");
@@ -229,7 +230,7 @@ public class SKOSValidatorShexImplTest {
 
 	}
 	
-	//FIXME: Checked with SPARQL @Test
+	@Test
 	public void testAccept_Consistent_9() {
 		try{
 			URI iri = new URI("http://example.org/MyConcept");
@@ -243,7 +244,7 @@ public class SKOSValidatorShexImplTest {
 
 	}
 	
-	//FIXME: Checked with SPARQL @Test
+	@Test
 	public void testAccept_Consistent_10() {
 		try{
 			URI iri = new URI("http://example.org/MyConcept");

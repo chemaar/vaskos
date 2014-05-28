@@ -39,7 +39,7 @@ public class SKOSValidatorShexImpl implements SKOSValidator{
 			PrefixMap pm = loaded.get()._2;
 			RDFTriples rdftriples = new RDFTriples(null , pm);
 			RDF rdf = rdftriples.parse(rdfContent).get();
-			Result<Typing> result = Schema.matchSchema(iri, rdf, schema);
+			Result<Typing> result = Schema.matchSchema(iri, rdf, schema,false);
 		//	showResult(Scala2Java.convertRestultsToJava(result));
 			System.out.println(result.isValid());
 			return result.isValid();
