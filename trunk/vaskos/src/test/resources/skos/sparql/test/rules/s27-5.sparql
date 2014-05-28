@@ -1,0 +1,15 @@
+prefix skos:    <http://www.w3.org/2004/02/skos/core#>
+
+#If a concept A has a related property can not be with itself
+ASK WHERE{
+{
+	SELECT (count (?concept) as ?nconcepts) WHERE{
+			 ?concept a skos:Concept.
+			 ?concept ?p ?otherConcept.
+			 FILTER ( ?p in (skos:narrower, skos:broader, skos:broaderTransitive, skos:narrowerTransitive, skos:related)).
+			 FILTER (?concept = ?otherConcept).
+	}
+}
+
+	FILTER (?nconcepts=0).
+}

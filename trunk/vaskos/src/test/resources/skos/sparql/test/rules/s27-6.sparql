@@ -1,0 +1,17 @@
+prefix skos:    <http://www.w3.org/2004/02/skos/core#>
+
+#If a concept A has a broader B, B has a broader C, A cannot have C as broader.
+ASK WHERE{
+{
+	SELECT (count (?concept) as ?nconcepts) WHERE{
+			 ?concept a skos:Concept.
+			 ?concept skos:broader ?broader.
+			 OPTIONAL{
+				?broader skos:broader ?otherBroader.
+			}
+			 FILTER NOT EXISTS { ?concept skos:broader ?otherBroader}.
+	}
+}
+
+	FILTER (?nconcepts=0).
+}

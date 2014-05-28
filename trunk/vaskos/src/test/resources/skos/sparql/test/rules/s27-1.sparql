@@ -1,0 +1,18 @@
+prefix skos:    <http://www.w3.org/2004/02/skos/core#>
+
+#If a concept A has a narrower B, B cannot broader of A
+
+ASK WHERE{
+	{
+	SELECT (count (?concept) as ?nconcepts) WHERE{
+		 ?concept a skos:Concept.
+		 ?concept skos:narrower ?narrower.
+		 OPTIONAL {
+			?concept skos:broader ?broader.
+		 }
+		 FILTER (?narrower = ?broader).
+		}
+	}
+	FILTER (?nconcepts=0).
+}
+ 

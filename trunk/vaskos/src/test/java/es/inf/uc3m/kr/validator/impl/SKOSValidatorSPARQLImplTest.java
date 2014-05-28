@@ -134,4 +134,118 @@ public class SKOSValidatorSPARQLImplTest {
 		SKOSValidatorSPARQLImpl validator = new SKOSValidatorSPARQLImpl(sparqlFiles);
 		Assert.assertTrue(validator.validate(rdfFile));
 	}
+	
+//	@Test
+//	public void testAccept_S25() throws IOException {
+//		String rdfFile = "skos/test/sources/accepted/s25.ttl";
+//		String[] sparqlFiles = new String []{"src/test/resources/skos/sparql/test/rules/s25.sparql"};
+//		SKOSValidatorSPARQLImpl validator = new SKOSValidatorSPARQLImpl(sparqlFiles);
+//		Assert.assertTrue(validator.validate(rdfFile));
+//	}
+//	
+
+	
+
+	
+
+	@Test
+	public void testReject_S26() throws IOException {
+		String rdfFile = "skos/test/sources/rejected/rejected-s26.ttl";
+		String[] sparqlFiles = new String []{"src/test/resources/skos/sparql/test/rules/s26.sparql"};
+		SKOSValidatorSPARQLImpl validator = new SKOSValidatorSPARQLImpl(sparqlFiles);
+		Assert.assertFalse(validator.validate(rdfFile));
+	}
+	
+	@Test
+	public void testReject_S26_1() throws IOException {
+		String rdfFile = "skos/test/sources/rejected/rejected-s26-1.ttl";
+		String[] sparqlFiles = new String []{"src/test/resources/skos/sparql/test/rules/s26-1.sparql"};
+		SKOSValidatorSPARQLImpl validator = new SKOSValidatorSPARQLImpl(sparqlFiles);
+		Assert.assertFalse(validator.validate(rdfFile));
+	}
+	
+	
+	@Test
+	public void testReject_S26_2() throws IOException {
+		String rdfFile = "skos/test/sources/rejected/rejected-s26-2.ttl";
+		String[] sparqlFiles = new String []{"src/test/resources/skos/sparql/test/rules/s26-2.sparql"};
+		SKOSValidatorSPARQLImpl validator = new SKOSValidatorSPARQLImpl(sparqlFiles);
+		Assert.assertFalse(validator.validate(rdfFile));
+	}
+	
+	
+	
+	@Test
+	public void testReject_S26_3() throws IOException {
+		String rdfFile = "skos/test/sources/rejected/rejected-s26-3.ttl";
+		String[] sparqlFiles = new String []{"src/test/resources/skos/sparql/test/rules/s26-3.sparql"};
+		SKOSValidatorSPARQLImpl validator = new SKOSValidatorSPARQLImpl(sparqlFiles);
+		Assert.assertFalse(validator.validate(rdfFile));
+	}
+	
+	
+	
+	@Test
+	public void testReject_S27() throws IOException {
+		String rdfFile = "skos/test/sources/rejected/rejected-s27.ttl";
+		String[] sparqlFiles = new String []{"src/test/resources/skos/sparql/test/rules/s27.sparql"};
+		SKOSValidatorSPARQLImpl validator = new SKOSValidatorSPARQLImpl(sparqlFiles);
+		Assert.assertFalse(validator.validate(rdfFile));
+	}
+	
+
+	@Test
+	public void testReject_S27_1() throws IOException {
+		String rdfFile = "skos/test/sources/rejected/rejected-s27-1.ttl";
+		String[] sparqlFiles = new String []{"src/test/resources/skos/sparql/test/rules/s27-1.sparql"};
+		SKOSValidatorSPARQLImpl validator = new SKOSValidatorSPARQLImpl(sparqlFiles);
+		Assert.assertFalse(validator.validate(rdfFile));
+	}
+	
+	@Test
+	public void testReject_S27_2() throws IOException {
+		String rdfFile = "skos/test/sources/rejected/rejected-s27-2.ttl";
+		String[] sparqlFiles = new String []{"src/test/resources/skos/sparql/test/rules/s27-2.sparql"};
+		SKOSValidatorSPARQLImpl validator = new SKOSValidatorSPARQLImpl(sparqlFiles);
+		Assert.assertFalse(validator.validate(rdfFile));
+	}
+	
+	@Test
+	public void testReject_S27_3() throws IOException {
+		String rdfFile = "skos/test/sources/rejected/rejected-s27-3.ttl";
+		String[] sparqlFiles = new String []{"src/test/resources/skos/sparql/test/rules/s27-3.sparql"};
+		SKOSValidatorSPARQLImpl validator = new SKOSValidatorSPARQLImpl(sparqlFiles);
+		Assert.assertFalse(validator.validate(rdfFile));
+	}
+	
+	@Test
+	public void testReject_S27_4() throws IOException {
+		String rdfFile = "skos/test/sources/rejected/rejected-s27-4";
+		String[] sparqlFiles = new String []{"src/test/resources/skos/sparql/test/rules/s27-4.sparql"};
+		SKOSValidatorSPARQLImpl validator = new SKOSValidatorSPARQLImpl(sparqlFiles);
+		for(int i = 1; i<=4; i++){
+			Assert.assertFalse(validator.validate(rdfFile+"-"+i+".ttl"));
+		}
+
+	}
+	
+	@Test
+	public void testReject_S27_5() throws IOException {
+		String rdfFile = "skos/test/sources/rejected/rejected-s27-5";
+		String[] sparqlFiles = new String []{"src/test/resources/skos/sparql/test/rules/s27-5.sparql"};
+		SKOSValidatorSPARQLImpl validator = new SKOSValidatorSPARQLImpl(sparqlFiles);
+		for(int i = 1; i<=4; i++){
+			Assert.assertFalse(validator.validate(rdfFile+"-"+i+".ttl"));
+		}
+
+	}
+	
+	@Test
+	public void testReject_S27_6() throws IOException {
+		String rdfFile = "skos/test/sources/rejected/rejected-s27-6.ttl";
+		String[] sparqlFiles = new String []{"src/test/resources/skos/sparql/test/rules/s27-6.sparql"};
+		SKOSValidatorSPARQLImpl validator = new SKOSValidatorSPARQLImpl(sparqlFiles);
+		Assert.assertFalse(validator.validate(rdfFile));
+	}
+	
 }
