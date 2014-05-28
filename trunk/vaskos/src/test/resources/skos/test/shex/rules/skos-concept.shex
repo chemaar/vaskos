@@ -13,10 +13,9 @@ start = <SkosConceptShape>  # A scheme concept validation starts with <SkosConce
  rdf:type (skos:Concept owl:Class owl:ObjectProperty)+, # type which is skos:Concept or/and OWL:Class
  skos:inScheme 		@<SkosConceptSchemeShape>*,					# and belongs to 0..n concept schemes,   
  skos:topConceptOf 	@<SkosConceptSchemeShape>*,				# and can be top concept of 0..n schemes
- (skos:prefLabel . * , skos:altLabel . *    | 
-  skos:prefLabel . * , skos:hiddeLabel . *  | 
-  skos:altLabel . *, skos:hiddenLabel . * ), 
-  
+ skos:prefLabel xsd:string*,
+ skos:altLabel xsd:string*,
+ skos:hiddenLabel xsd:string*,
  skos:broader 	    @<SkosConceptShape>*,				# and can have 0..1 broader elements
  skos:narrower 	    @<SkosConceptShape>*,			# and can have 0..n narrower elements
  skos:broaderTransitive 	    @<SkosConceptShape>*,				# and can have 0..1 broader elements
