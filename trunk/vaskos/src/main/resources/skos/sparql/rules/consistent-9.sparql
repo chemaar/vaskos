@@ -1,0 +1,13 @@
+prefix skos:    <http://www.w3.org/2004/02/skos/core#>
+ASK WHERE{
+	{	SELECT (count(distinct ?anotherConcept) AS ?result)  WHERE{
+		 ?concept a skos:Concept.
+		 ?scheme skos:hasTopConcept ?concept.
+		 ?concept skos:narrower ?anotherConcept.
+		 FILTER NOT EXISTS{
+		 	?anotherConcept skos:inScheme ?scheme.
+		 }
+		}
+	}
+	FILTER (?result = 0)
+}

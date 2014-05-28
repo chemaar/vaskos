@@ -1,0 +1,19 @@
+prefix skos:    <http://www.w3.org/2004/02/skos/core#>
+
+#If a concept A has a narrower transitive B, B cannot be neither broader nor broader transitive of A
+
+ASK WHERE{
+	{
+	SELECT (count (?concept) as ?nconcepts) WHERE{
+		 ?concept a skos:Concept.
+		 ?concept skos:narrowerTransitive ?narrower.
+		 OPTIONAL {
+			?concept ?psemantic ?broader.
+			FILTER (?psemantic in (skos:broader, skos:broaderTransitive)).
+		 }
+		 FILTER (bound(?narrower) && bound(?broader)&& ?narrower = ?broader).
+		}
+	}
+	FILTER (?nconcepts=0).
+}
+ 
