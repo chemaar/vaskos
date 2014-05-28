@@ -16,6 +16,15 @@ start = <SkosConceptShape>  # A scheme concept validation starts with <SkosConce
  skos:prefLabel xsd:string*,
  skos:altLabel xsd:string*,
  skos:hiddenLabel xsd:string*,
+ skos:notation .*,
+ #skos:note (rdf:Resource  xsd:string | <DataTypePropertyShape>)*,
+ skos:note .*,
+ skos:changeNote xsd:string*,
+ skos:definition xsd:string*,
+ skos:editorialNote xsd:string*,
+ skos:example xsd:string*,
+ skos:historyNote xsd:string*,
+ skos:scopeNote xsd:string*,
  skos:broader 	    @<SkosConceptShape>*,				# and can have 0..1 broader elements
  skos:narrower 	    @<SkosConceptShape>*,			# and can have 0..n narrower elements
  skos:broaderTransitive 	    @<SkosConceptShape>*,				# and can have 0..1 broader elements

@@ -76,6 +76,7 @@ public class Test {
 				}
 			}
 		}
+		
 		//System.out.println(result);
 
 ////		OntDocumentManager dm = OntDocumentManager.getInstance();

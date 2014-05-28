@@ -284,7 +284,7 @@ public class SKOSValidatorShexImplTest {
 		}
 	}
 	
-	
+    //FIXME: On-line version works
 	@Test
 	public void testAccept_17() {
 		try{
@@ -298,7 +298,7 @@ public class SKOSValidatorShexImplTest {
 		}
 	}
 	
-	
+    //FIXME: On-line version works
 	@Test
 	public void testAccept_18() {
 		try{
@@ -311,11 +311,11 @@ public class SKOSValidatorShexImplTest {
 			Assert.assertTrue(Boolean.FALSE);
 		}
 	}
-	
+    //FIXME: On-line version works
 	@Test
 	public void testAccept_19() {
 		try{
-			URI iri = new URI("http://example.org/Colour");
+			URI iri = new URI("http://example.org/Love");
 			String shexFile = "src/test/resources/skos/test/shex/rules/skos-concept.shex";
 			String rdfFile = "src/test/resources/skos/test/sources/accepted/consistent-19.ttl";
 			Assert.assertTrue(executeTest(iri, shexFile, rdfFile));
@@ -324,6 +324,76 @@ public class SKOSValidatorShexImplTest {
 			Assert.assertTrue(Boolean.FALSE);
 		}
 	}
+	
+	
+
+	@Test
+	public void testAccept_20() {
+		try{
+			URI iri = new URI("http://example.org/MyConcept");
+			String shexFile = "src/test/resources/skos/test/shex/rules/skos-concept.shex";
+			String rdfFile = "src/test/resources/skos/test/sources/accepted/consistent-20.ttl";
+			Assert.assertTrue(executeTest(iri, shexFile, rdfFile));
+		}catch (Exception e){
+			e.printStackTrace();
+			Assert.assertTrue(Boolean.FALSE);
+		}
+	}
+	
+	@Test
+	public void testAccept_21() {
+		try{
+			URI iri = new URI("http://example.org/Potassium");
+			String shexFile = "src/test/resources/skos/test/shex/rules/skos-concept.shex";
+			String rdfFile = "src/test/resources/skos/test/sources/accepted/consistent-21.ttl";
+			Assert.assertTrue(executeTest(iri, shexFile, rdfFile));
+		}catch (Exception e){
+			e.printStackTrace();
+			Assert.assertTrue(Boolean.FALSE);
+		}
+	}
+	
+	@Test
+	public void testAccept_22() {
+		try{
+			URI iri = new URI("http://example.org/MyResource");
+			String shexFile = "src/test/resources/skos/test/shex/rules/skos-concept.shex";
+			String rdfFile = "src/test/resources/skos/test/sources/accepted/consistent-22.ttl";
+			Assert.assertTrue(executeTest(iri, shexFile, rdfFile));
+		}catch (Exception e){
+			e.printStackTrace();
+			Assert.assertTrue(Boolean.FALSE);
+		}
+	}
+	
+	
+	@Test
+	public void testAccept_23() {
+		try{
+			URI iri = new URI("http://example.org/MyResource");
+			String shexFile = "src/test/resources/skos/test/shex/rules/skos-concept.shex";
+			String rdfFile = "src/test/resources/skos/test/sources/accepted/consistent-23.ttl";
+			Assert.assertTrue(executeTest(iri, shexFile, rdfFile));
+		}catch (Exception e){
+			e.printStackTrace();
+			Assert.assertTrue(Boolean.FALSE);
+		}
+	}
+	
+	
+	@Test
+	public void testAccept_24() {
+		try{
+			URI iri = new URI("http://example.org/Protein");
+			String shexFile = "src/test/resources/skos/test/shex/rules/skos-concept.shex";
+			String rdfFile = "src/test/resources/skos/test/sources/accepted/consistent-24.ttl";
+			Assert.assertTrue(executeTest(iri, shexFile, rdfFile));
+		}catch (Exception e){
+			e.printStackTrace();
+			Assert.assertTrue(Boolean.FALSE);
+		}
+	}
+	
 	
 	
 	//Helper MEthods
