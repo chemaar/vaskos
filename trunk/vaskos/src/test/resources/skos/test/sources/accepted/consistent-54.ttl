@@ -4,9 +4,11 @@
 @prefix skos: <http://www.w3.org/2004/02/skos/core#>.
 @prefix : <http://example.org/>.
 
+:A skos:broadMatch :B .
 
-:A rdf:type skos:Concept.
-:B a skos:Concept.
-
-:A skos:exactMatch :B.
-:A skos:broadMatch :B.
+:A skos:mappingRelation :B .
+:A skos:broader :B .
+:A skos:broaderTransitive :B .
+:A skos:semanticRelation :B .
+:A rdf:type skos:Concept .
+:B rdf:type skos:Concept .

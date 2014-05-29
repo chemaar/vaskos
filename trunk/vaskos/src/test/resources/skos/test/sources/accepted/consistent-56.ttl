@@ -5,8 +5,11 @@
 @prefix : <http://example.org/>.
 
 
-:A rdf:type skos:Concept.
-:B a skos:Concept.
+:A skos:relatedMatch :B .
 
-:A skos:exactMatch :B.
-:A skos:broadMatch :B.
+
+:A skos:mappingRelation :B .
+:A skos:related :B .
+:A skos:semanticRelation :B .
+:A rdf:type skos:Concept .
+:B rdf:type skos:Concept .
