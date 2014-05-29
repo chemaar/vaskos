@@ -1,14 +1,12 @@
 prefix skos:    <http://www.w3.org/2004/02/skos/core#>
 
-#If a concept A cannot be narrower of itself
+#If a concept A has a closeMatch B, B cannot be exactMatch
 ask where{
 	{
 	SELECT (count (?concept) as ?nconcepts) WHERE{
 	 ?concept a skos:Concept.
-	 OPTIONAL {
-		?concept skos:narrower ?narrower.
-	 }
-	 FILTER (bound(?narrower) && ?narrower = ?concept).
+	 ?concept skos:exactMatch ?match.
+	 FILTER NOT EXIST {?concept ?skos:closeMatch ?match}.
 	}
 	}
  FILTER (?nconcepts=0).

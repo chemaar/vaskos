@@ -1,6 +1,6 @@
 prefix skos:    <http://www.w3.org/2004/02/skos/core#>
 
-#If a concept A cannot be broader of itself
+#A concept A cannot be broader of itself
 ask where{
 	{
 	SELECT (count (?concept) as ?nconcepts) WHERE{

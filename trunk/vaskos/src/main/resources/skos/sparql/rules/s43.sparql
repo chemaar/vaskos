@@ -1,0 +1,17 @@
+prefix skos:    <http://www.w3.org/2004/02/skos/core#>
+
+#If a concept A has a narrowMatch B, B cannot have A as narrowMAtch
+
+ask where{
+	{
+	SELECT (count (?concept) as ?nconcepts) WHERE{
+	 ?concept a skos:Concept.
+	 ?concept skos:narrowMatch ?narrowerMatch.
+	 OPTIONAL {
+		?narrowerMatch skos:narrowMatch ?otherNarrowerMatch.
+	 }
+	 FILTER (?otherNarrowerMatch = ?concept).
+	}
+	}
+ FILTER (?nconcepts=0).
+}

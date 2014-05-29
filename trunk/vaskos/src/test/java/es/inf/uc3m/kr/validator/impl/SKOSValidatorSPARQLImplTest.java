@@ -248,4 +248,31 @@ public class SKOSValidatorSPARQLImplTest {
 		Assert.assertFalse(validator.validate(rdfFile));
 	}
 	
+	@Test
+	public void testReject_S43() throws IOException {
+		String rdfFile = "skos/test/sources/rejected/rejected-s43.ttl";
+		String[] sparqlFiles = new String []{"src/main/resources/skos/sparql/rules/s43.sparql"};
+		SKOSValidatorSPARQLImpl validator = new SKOSValidatorSPARQLImpl(sparqlFiles);
+		Assert.assertFalse(validator.validate(rdfFile));
+	}
+	
+	@Test
+	public void testReject_S43_1() throws IOException {
+		String rdfFile = "skos/test/sources/rejected/rejected-s43-1.ttl";
+		String[] sparqlFiles = new String []{"src/main/resources/skos/sparql/rules/s43-1.sparql"};
+		SKOSValidatorSPARQLImpl validator = new SKOSValidatorSPARQLImpl(sparqlFiles);
+		Assert.assertFalse(validator.validate(rdfFile));
+	}
+	
+	@Test
+	public void testReject_S43_2() throws IOException {
+		String rdfFile = "skos/test/sources/rejected/rejected-s43-2";
+		String[] sparqlFiles = new String []{"src/main/resources/skos/sparql/rules/s43-2.sparql"};
+		SKOSValidatorSPARQLImpl validator = new SKOSValidatorSPARQLImpl(sparqlFiles);
+		for(int i = 1; i<=4; i++){
+			Assert.assertFalse(validator.validate(rdfFile+"-"+i+".ttl"));
+		}
+
+	}
+	
 }

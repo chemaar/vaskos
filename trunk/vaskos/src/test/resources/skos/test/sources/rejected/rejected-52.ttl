@@ -4,7 +4,6 @@
 @prefix skos: <http://www.w3.org/2004/02/skos/core#>.
 @prefix : <http://example.org/>.
 
-:A a skos:Concept.
-:B a skos:Concept.
-:A skos:exactMatch :B.
-:A skos:broadMatch :B.
+
+:Love skos:prefLabel "love"@en ; 
+	skos:altLabel "love"@en .

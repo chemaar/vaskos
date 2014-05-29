@@ -1,0 +1,17 @@
+prefix skos:    <http://www.w3.org/2004/02/skos/core#>
+
+#A concept A cannot be broadMatch, relatedMatch, narrowerMatch or closeMatched of itself
+
+ASK WHERE{
+	{
+	SELECT (count (?concept) as ?nconcepts) WHERE{
+		 ?concept a skos:Concept.
+  		 ?concept ?psemantic ?related.
+	     FILTER (?psemantic in ( skos:closeMatch, skos:exactMatch, skos:broadMatch, skos:narrowMatch, skos:relatedMatch )).
+		 FILTER (bound(?related)&& ?concept = ?related).
+		}
+	}
+	FILTER (?nconcepts=0).
+}
+ 
+ 
