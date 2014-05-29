@@ -63,7 +63,7 @@ start = <SkosConceptShape>  # A scheme concept validation starts with <SkosConce
   rdfs:label xsd:string*,
   rdfs:description xsd:string*,
   rdf:type (skos:OrderedCollection skos:Collection owl:Class),
-  skos:memberList .*
+  skos:memberList rdf:List*
 }
 
 
