@@ -6,8 +6,11 @@ ask where{
 	SELECT (count (?concept) as ?nconcepts) WHERE{
 	 ?concept a skos:Concept.
 	 ?concept skos:exactMatch ?match.
-	 FILTER NOT EXIST {?concept ?skos:closeMatch ?match}.
-	 FILTER NOT EXIST {?concept ?skos:relatedMatch ?match}.
+	 OPTIONAL {
+		?concept ?psemantic ?otherMatch.
+		FILTER (?psemantic in ( skos:closeMatch, skos:broadMatch, skos:relatedMatch, skos:narrowMatch)).
+	 }
+	 FILTER(bound(?match) && bound(?otherMatch) && ?match=?otherMatch).
 	}
 	}
  FILTER (?nconcepts=0).

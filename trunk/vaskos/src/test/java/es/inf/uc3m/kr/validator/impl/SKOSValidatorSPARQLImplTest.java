@@ -275,4 +275,15 @@ public class SKOSValidatorSPARQLImplTest {
 
 	}
 	
+	@Test
+	public void testReject_S46() throws IOException {
+		String rdfFile = "skos/test/sources/rejected/rejected-s46";
+		String[] sparqlFiles = new String []{"src/main/resources/skos/sparql/rules/s46.sparql"};
+		SKOSValidatorSPARQLImpl validator = new SKOSValidatorSPARQLImpl(sparqlFiles);
+		for(int i = 1; i<=4; i++){
+			Assert.assertFalse(validator.validate(rdfFile+"-"+i+".ttl"));
+		}
+
+	}
+	
 }
