@@ -471,6 +471,60 @@ private static final String SKOS_SHEX_RULES = "src/main/resources/skos/shex/rule
 	}
 	
 	
+	@Test
+	public void testAccept_48() {
+		try{
+			URI iri = new URI("http://example.org/A");
+			String shexFile = SKOS_SHEX_RULES;
+			String rdfFile = "src/test/resources/skos/test/sources/accepted/consistent-48.ttl";
+			Assert.assertTrue(executeTest(iri, shexFile, rdfFile));
+		}catch (Exception e){
+			e.printStackTrace();
+			Assert.assertTrue(Boolean.FALSE);
+		}
+	}
+
+	@Test
+	public void testAccept_49() {
+		try{
+			URI iri = new URI("http://example.org/A");
+			String shexFile = SKOS_SHEX_RULES;
+			String rdfFile = "src/test/resources/skos/test/sources/accepted/consistent-49.ttl";
+			Assert.assertTrue(executeTest(iri, shexFile, rdfFile));
+		}catch (Exception e){
+			e.printStackTrace();
+			Assert.assertTrue(Boolean.FALSE);
+		}
+	}
+	
+	
+	@Test
+	public void testAccept_50() {
+		try{
+			URI iri = new URI("http://example.org/A");
+			String shexFile = SKOS_SHEX_RULES;
+			String rdfFile = "src/test/resources/skos/test/sources/accepted/consistent-50.ttl";
+			Assert.assertTrue(executeTest(iri, shexFile, rdfFile));
+		}catch (Exception e){
+			e.printStackTrace();
+			Assert.assertTrue(Boolean.FALSE);
+		}
+	}
+	
+	@Test
+	public void testAccept_51() {
+		try{
+			URI iri = new URI("http://example.org/A");
+			String shexFile = SKOS_SHEX_RULES;
+			String rdfFile = "src/test/resources/skos/test/sources/accepted/consistent-51.ttl";
+			Assert.assertTrue(executeTest(iri, shexFile, rdfFile));
+		}catch (Exception e){
+			e.printStackTrace();
+			Assert.assertTrue(Boolean.FALSE);
+		}
+	}
+	
+	
 	
 	//Helper MEthods
 	protected static boolean executeTest(URI iri, String shexFile, String rdfFile) throws IOException{

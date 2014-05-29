@@ -32,7 +32,13 @@ start = <SkosConceptShape>  # A scheme concept validation starts with <SkosConce
  skos:narrower 	    @<SkosConceptShape>*,			# and can have 0..n narrower elements
  skos:broaderTransitive 	    @<SkosConceptShape>*,				# and can have 0..1 broader elements
  skos:narrowerTransitive 	    @<SkosConceptShape>*,		# and can have 0..n narrower elements
- skos:related @<SkosConceptShape>*
+ skos:related @<SkosConceptShape>*,
+ skos:semanticRelation (rdf:Resource <SkosConceptShape>)*,
+ skos:exactMatch (rdf:Resource <SkosConceptShape>)*, 
+ skos:closeMatch (rdf:Resource <SkosConceptShape>)*, 
+ skos:broadMatch (rdf:Resource <SkosConceptShape>)*, 
+ skos:narrowMatch (rdf:Resource <SkosConceptShape>)*,
+ skos:relatedMatch (rdf:Resource <SkosConceptShape>)*
 }
 
 
