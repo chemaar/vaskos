@@ -531,7 +531,8 @@ private static final String SKOS_SHEX_RULES = "src/main/resources/skos/shex/rule
 		SKOSValidatorShexImpl validator = new SKOSValidatorShexImpl(shexFile, iri);
 		return validator.validate(rdfFile);
 	}
-
+	
+	//FIXME: Online version works
 	@Test
 	public void testRejected_2() throws URISyntaxException, IOException {
 		URI iri = new URI("http://example.org/MyConcept");
