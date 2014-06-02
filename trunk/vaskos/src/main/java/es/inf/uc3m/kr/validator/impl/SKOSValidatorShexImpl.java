@@ -59,7 +59,7 @@ public class SKOSValidatorShexImpl extends SKOSValidatorAdapter{
 			logger.info("Finish validation in "+this.getClass().getSimpleName()+" with context "+this.context);
 		} catch (IOException e) {
 			this.context.setValid(Boolean.FALSE);
-			System.out.println("Validating in "+this.getClass().getSimpleName()+" with context "+this.context);
+			logger.error("Validating in "+this.getClass().getSimpleName()+" with context "+this.context);
 			throw new VaskosModelException(e);
 		}
 	}
