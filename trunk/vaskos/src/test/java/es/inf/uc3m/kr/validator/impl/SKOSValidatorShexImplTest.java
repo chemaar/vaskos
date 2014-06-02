@@ -11,6 +11,7 @@ import junit.framework.Assert;
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.Test;
 
+import es.inf.uc3m.kr.validator.SKOSValidator;
 import es.inf.uc3m.kr.validator.to.ValidationContext;
 import es.weso.rdfgraph.nodes.IRI;
 
@@ -19,7 +20,7 @@ public class SKOSValidatorShexImplTest {
 
 	
 
-private static final String SKOS_SHEX_RULES = "src/main/resources/skos/shex/rules/skos-concept.shex";
+private static final String SKOS_SHEX_RULES = SKOSValidator.SHEX_FILE;
 
 	//	@Test
 	public void testSimpleAccept() throws URISyntaxException, IOException {

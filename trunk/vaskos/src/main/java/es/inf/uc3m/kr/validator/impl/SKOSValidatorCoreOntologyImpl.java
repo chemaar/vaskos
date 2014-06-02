@@ -1,28 +1,28 @@
 package es.inf.uc3m.kr.validator.impl;
 
 import java.util.Iterator;
+import java.util.List;
 
-import org.mindswap.pellet.jena.PelletReasonerFactory;
+import org.apache.log4j.Logger;
 
-import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.OntDocumentManager;
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.ontology.OntModelSpec;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
-import com.hp.hpl.jena.rdf.model.Resource;
-import com.hp.hpl.jena.reasoner.Reasoner;
 import com.hp.hpl.jena.reasoner.ValidityReport;
-import com.sun.istack.internal.logging.Logger;
 
-import es.inf.uc3m.kr.validator.SKOSValidator;
 import es.inf.uc3m.kr.validator.SKOSValidatorAdapter;
-import es.inf.uc3m.kr.validator.to.ValidationContext;
+import es.inf.uc3m.kr.validator.exception.VaskosModelException;
+import es.inf.uc3m.kr.validator.to.MessageTO;
+import es.inf.uc3m.kr.validator.to.MessageType;
+import es.inf.uc3m.kr.validator.to.ValidationContextUtils;
 
 public class SKOSValidatorCoreOntologyImpl extends SKOSValidatorAdapter{
 	protected static Logger logger = Logger.getLogger(SKOSValidatorCoreOntologyImpl.class);
 
 
- public void execute(){
+	public void execute(){
+		logger.info("Starting validation in "+this.getClass().getSimpleName()+" with context "+this.context);
 		try{
 			//Reasoner reasoner = PelletReasonerFactory.theInstance().create();
 			OntDocumentManager dm = OntDocumentManager.getInstance();
@@ -31,37 +31,40 @@ public class SKOSValidatorCoreOntologyImpl extends SKOSValidatorAdapter{
 			spec.setDocumentManager(dm);     
 			//spec.setReasoner(reasoner);
 
-			
-			OntModel base = ModelFactory.createOntologyModel( spec, null );
-			base.read(Thread.currentThread().getContextClassLoader().getResourceAsStream(SKOS_ONTOLOGY_FILE), "");  
-			base.read(Thread.currentThread().getContextClassLoader().getResourceAsStream(context.getLocalFile()), "","TURTLE");  
-			OntModel inf = ModelFactory.createOntologyModel(spec, base);
-			
-			 ValidityReport validity = base.validate();
-			    if (validity.isValid()) {
-			        System.out.println("OK");
-			    } else {
-			        System.out.println("Conflicts");
-			        for (Iterator i = validity.getReports(); i.hasNext(); ) {
-			            System.out.println(" - " + i.next());
-			        }
-			    }
-			
-//			Individual p1 = base.getIndividual("http://purl.org/krgroup/pbs/p1/resource/Mountain_Bike");
-//			// list the asserted types
-//			for (Iterator<Resource> i = p1.listRDFTypes(false); i.hasNext(); ) {
-//			    System.out.println( p1.getURI() + " is asserted in class " + i.next() );
-//			}
-//
-//			// list the inferred types
-//			p1 = inf.getIndividual( "http://purl.org/krgroup/pbs/p1/resource/Mountain_Bike" );
-//			for (Iterator<Resource> i = p1.listRDFTypes(false); i.hasNext(); ) {
-//			    System.out.println( p1.getURI() + " is inferred to be in class " + i.next() );
-//			}
-			
+
+			OntModel ontology = ModelFactory.createOntologyModel( spec, null );
+			ontology.read(Thread.currentThread().getContextClassLoader()
+					.getResourceAsStream(SKOS_ONTOLOGY_FILE), "");  
+
+
+			//If there is no base model loaded
+			if(!this.context.hasBaseModel()){
+				ValidationContextUtils.createBaseModel(this.context);
+			}
+
+			ontology.add(this.context.getBaseModel());
+
+
+			OntModel inf = ModelFactory.createOntologyModel(spec, ontology);
+
+			ValidityReport validity = ontology.validate();
+			if (validity.isValid()) {
+				this.context.setValid(Boolean.TRUE);
+			} else {
+				this.context.setValid(Boolean.FALSE);
+				List<MessageTO> errors = this.context.getMessenger().getErrors();
+				for (Iterator i = validity.getReports(); i.hasNext(); ) {
+					MessageTO message = new MessageTO(i.next().toString(), MessageType.ERROR);
+					errors.add(message );
+				}
+			}
+
+			logger.info("Finish validation in "+this.getClass().getSimpleName()+" with context "+this.context);
 
 		}catch(Exception e){
-			e.printStackTrace();
+			this.context.setValid(Boolean.FALSE);
+			logger.error("Validating in "+this.getClass().getSimpleName()+" with context "+this.context,e);
+			throw new VaskosModelException(e);
 		}
 
 	}

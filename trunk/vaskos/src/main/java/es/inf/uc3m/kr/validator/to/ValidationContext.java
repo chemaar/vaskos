@@ -3,6 +3,9 @@ package es.inf.uc3m.kr.validator.to;
 import java.io.IOException;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+
+import org.openrdf.rio.RDFFormat;
 
 import com.hp.hpl.jena.rdf.model.Model;
 
@@ -14,6 +17,7 @@ public class ValidationContext {
 	private String localFile;
 	private String uriFile;
 	private String endpoint;
+	private String lines;
 	private String shexFile;
 	private URI startingIRI;
 	private String []sparqlFiles;
@@ -22,6 +26,9 @@ public class ValidationContext {
 	private MessageManager messenger;
 	private boolean valid;
 	private String[] stringSPARQLqueries;
+	private RDFFormat format;
+	private long startTime;
+	private long endTime;
 	
 	public ValidationContext() {
 		super();
@@ -34,6 +41,7 @@ public class ValidationContext {
 		this.valid = Boolean.FALSE;
 		this.shexFile = null;
 		this.startingIRI = null;
+		this.format = RDFFormat.TURTLE;
 	}
 	public String getLocalFile() {
 		return localFile;
@@ -109,8 +117,60 @@ public class ValidationContext {
 	public void setStringSPARQLqueries(String[] stringSPARQLqueries) {
 		this.stringSPARQLqueries = stringSPARQLqueries;
 	}
+	public RDFFormat getFormat() {
+		return format;
+	}
+	public void setFormat(RDFFormat format) {
+		this.format = format;
+	}
+	public long getStartTime() {
+		return startTime;
+	}
+	public void setStartTime(long startTime) {
+		this.startTime = startTime;
+	}
+	public long getEndTime() {
+		return endTime;
+	}
+	public void setEndTime(long endTime) {
+		this.endTime = endTime;
+	}
+	public String getLines() {
+		return lines;
+	}
+	public void setLines(String lines) {
+		this.lines = lines;
+	}
+	@Override
+	public String toString() {
+		return "ValidationContext [localFile=" + localFile + ", uriFile="
+				+ uriFile + ", endpoint=" + endpoint + ", lines=" + lines
+				+ ", shexFile=" + shexFile + ", startingIRI=" + startingIRI
+				+ ", sparqlFiles=" + Arrays.toString(sparqlFiles) + ", valid="
+				+ valid + ", format=" + format + ", startTime=" + startTime
+				+ ", endTime=" + endTime + "]";
+	}
+
 	
+	public boolean isLocalFile(){
+		return this.localFile!=null;
+	}
 	
+	public boolean isUriFile(){
+		return this.uriFile!=null;
+	}
+
+	public boolean isEndpoint(){
+		return this.endpoint!=null;
+	}
+	
+	public boolean isLines(){
+		return this.lines!=null;
+	}
 	
 
+	public boolean hasBaseModel(){
+		return this.baseModel!=null;
+	}
+	
 }
