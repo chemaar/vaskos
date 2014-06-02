@@ -19,6 +19,7 @@ import scala.collection.convert.Decorators.AsJavaCollection;
 import scala.collection.immutable.List;
 import scala.collection.immutable.Map;
 import scala.collection.immutable.Set;
+import scala.collection.immutable.Stream;
 import scala.util.Try;
 
 import com.hp.hpl.jena.ontology.Individual;
@@ -57,7 +58,7 @@ public class Test {
 
 	public static void main(String[] args) throws IOException, URISyntaxException {
 		String sheXontent = readFile("src/main/resources/shex/rules/issue.shex", StandardCharsets.UTF_8);
-		String rdfContent = readFile("src/main/resources/shex/sources/issue.ttl", StandardCharsets.UTF_8);
+		String rdfContent = readFile("src/main/resources/shex/sources/accepted/issue.ttl", StandardCharsets.UTF_8);
 		IRI iri = new IRI(new URI("http://example.org/x"));
 		Try<Tuple2<Schema, PrefixMap>> loaded = Schema.fromString(sheXontent);
 		Schema schema = loaded.get()._1;
@@ -66,7 +67,9 @@ public class Test {
 		RDF rdf = rdftriples.parse(rdfContent).get();
 		Result<Typing> result = Schema.matchSchema(iri, rdf, schema,true);
 		System.out.println(result.isValid());
-		java.util.List<java.util.Map<IRI, java.util.Set<IRI>>> results = Scala2Java.convertRestultsToJava(result);
+		System.out.println(result.isFailure());
+		
+		java.util.List<java.util.Map<IRI, java.util.Set<IRI>>> results = Scala2Java.convertRestultsToJava(result.run());
 		for(java.util.Map<IRI, java.util.Set<IRI>> converted: results){
 			for(IRI key:converted.keySet()){
 				System.out.println(key.str());

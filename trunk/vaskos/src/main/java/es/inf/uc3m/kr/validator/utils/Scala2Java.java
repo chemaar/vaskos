@@ -1,6 +1,7 @@
 package es.inf.uc3m.kr.validator.utils;
 
 import scala.collection.immutable.Set;
+import scala.collection.immutable.Stream;
 import es.weso.monads.Result;
 import es.weso.rdfgraph.nodes.IRI;
 import es.weso.shex.Typing;
@@ -17,6 +18,15 @@ public class Scala2Java {
 	}
 	
 	public static java.util.List<java.util.Map<IRI, java.util.Set<IRI>>> convertRestultsToJava(Result<Typing> result){
+		java.util.List<Typing> results = scala.collection.JavaConverters.asJavaListConverter(result.toList()).asJava();
+		java.util.List<java.util.Map<IRI, java.util.Set<IRI>>> converted = new java.util.LinkedList<java.util.Map<IRI,java.util.Set<IRI>>>();
+		for(Typing t:results){
+			converted.add(convertRestultsToJava(t));
+		}
+		return converted;
+	}
+	
+	public static java.util.List<java.util.Map<IRI, java.util.Set<IRI>>> convertRestultsToJava(Stream<Typing> result){
 		java.util.List<Typing> results = scala.collection.JavaConverters.asJavaListConverter(result.toList()).asJava();
 		java.util.List<java.util.Map<IRI, java.util.Set<IRI>>> converted = new java.util.LinkedList<java.util.Map<IRI,java.util.Set<IRI>>>();
 		for(Typing t:results){

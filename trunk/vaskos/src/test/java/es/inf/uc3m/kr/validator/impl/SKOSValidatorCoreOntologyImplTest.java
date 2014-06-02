@@ -6,6 +6,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import es.inf.uc3m.kr.validator.to.ValidationContext;
+
 public class SKOSValidatorCoreOntologyImplTest {
 
 	@Before
@@ -18,8 +20,10 @@ public class SKOSValidatorCoreOntologyImplTest {
 
 	@Test
 	public void testValidate() {
+		ValidationContext vc = new ValidationContext();
+		vc.setLocalFile("skos/mountain-bike-simple-test.ttl");
 		SKOSValidatorCoreOntologyImpl validator = new SKOSValidatorCoreOntologyImpl();
-		validator.validate("skos/mountain-bike-simple-test.ttl");
+		validator.validate(vc);
 	}
 
 }

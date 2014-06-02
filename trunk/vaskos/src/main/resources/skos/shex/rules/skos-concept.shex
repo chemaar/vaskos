@@ -54,7 +54,7 @@ start = <SkosConceptShape>  # A scheme concept validation starts with <SkosConce
  rdfs:label xsd:string*,
  rdfs:description xsd:string*,
  rdf:type (skos:Collection owl:Class),
- skos:member (<SkosConceptShape> <SkosCollectionShape>)+
+ skos:member @<ListOfCollectionsAndConcepts>
 
 }
 
@@ -63,7 +63,12 @@ start = <SkosConceptShape>  # A scheme concept validation starts with <SkosConce
   rdfs:label xsd:string*,
   rdfs:description xsd:string*,
   rdf:type (skos:OrderedCollection skos:Collection owl:Class),
-  skos:memberList rdf:List*
+  skos:memberList @<ListOfCollectionsAndConcepts>
 }
 
+<ListOfCollectionsAndConcepts> {
+	rdf:rest (rdf:nil)
+		| rdf:first (<SkosConceptShape> <SkosCollectionShape>)
+		, rdf:rest @<ListOfConcepts>
+}
 

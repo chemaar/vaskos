@@ -15,13 +15,14 @@ import com.hp.hpl.jena.reasoner.ValidityReport;
 import com.sun.istack.internal.logging.Logger;
 
 import es.inf.uc3m.kr.validator.SKOSValidator;
+import es.inf.uc3m.kr.validator.SKOSValidatorAdapter;
+import es.inf.uc3m.kr.validator.to.ValidationContext;
 
-public class SKOSValidatorCoreOntologyImpl implements SKOSValidator{
+public class SKOSValidatorCoreOntologyImpl extends SKOSValidatorAdapter{
 	protected static Logger logger = Logger.getLogger(SKOSValidatorCoreOntologyImpl.class);
 
 
-
-	public boolean validate(String file) {
+ public void execute(){
 		try{
 			//Reasoner reasoner = PelletReasonerFactory.theInstance().create();
 			OntDocumentManager dm = OntDocumentManager.getInstance();
@@ -33,7 +34,7 @@ public class SKOSValidatorCoreOntologyImpl implements SKOSValidator{
 			
 			OntModel base = ModelFactory.createOntologyModel( spec, null );
 			base.read(Thread.currentThread().getContextClassLoader().getResourceAsStream(SKOS_ONTOLOGY_FILE), "");  
-			base.read(Thread.currentThread().getContextClassLoader().getResourceAsStream(file), "","TURTLE");  
+			base.read(Thread.currentThread().getContextClassLoader().getResourceAsStream(context.getLocalFile()), "","TURTLE");  
 			OntModel inf = ModelFactory.createOntologyModel(spec, base);
 			
 			 ValidityReport validity = base.validate();
@@ -58,13 +59,11 @@ public class SKOSValidatorCoreOntologyImpl implements SKOSValidator{
 //			    System.out.println( p1.getURI() + " is inferred to be in class " + i.next() );
 //			}
 			
-			
-			return Boolean.TRUE;
+
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 
-		return Boolean.FALSE;
 	}
 
 }

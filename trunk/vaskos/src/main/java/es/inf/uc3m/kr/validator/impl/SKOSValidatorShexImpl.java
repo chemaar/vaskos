@@ -1,15 +1,13 @@
 package es.inf.uc3m.kr.validator.impl;
 
 import java.io.IOException;
-import java.net.URI;
 import java.nio.charset.StandardCharsets;
 
 import scala.Tuple2;
 import scala.util.Try;
-import es.inf.uc3m.kr.validator.SKOSValidator;
+import es.inf.uc3m.kr.validator.SKOSValidatorAdapter;
 import es.inf.uc3m.kr.validator.exception.VaskosModelException;
 import es.inf.uc3m.kr.validator.utils.FileUtils;
-import es.inf.uc3m.kr.validator.utils.Scala2Java;
 import es.weso.monads.Result;
 import es.weso.parser.PrefixMap;
 import es.weso.rdf.RDF;
@@ -18,22 +16,22 @@ import es.weso.rdfgraph.nodes.IRI;
 import es.weso.shex.Schema;
 import es.weso.shex.Typing;
 
-public class SKOSValidatorShexImpl implements SKOSValidator{
+public class SKOSValidatorShexImpl extends SKOSValidatorAdapter{
 	
 	private String shexFile;
 	private IRI iri;
 	private String shexRules;
 
-	public SKOSValidatorShexImpl(String shexFile, URI iri) throws IOException{
-		this.shexFile = shexFile;
-		this.iri = new IRI (iri);
-		this.shexRules = FileUtils.readFile(this.shexFile, StandardCharsets.UTF_8);
-	}
 
-	public boolean validate(String file) {
+
+	public void execute() {
 		try {
+			this.shexFile = context.getShexFile();
+			this.shexRules = FileUtils.readFile(this.shexFile, StandardCharsets.UTF_8);
+			this.iri = new IRI (context.getStartingIRI());
 			//FIXME: Now it is only Turtle
-			String rdfContent = FileUtils.readFile(file, StandardCharsets.UTF_8);
+			String rdfContent = FileUtils.readFile(context.getLocalFile(), 
+					StandardCharsets.UTF_8);
 			Try<Tuple2<Schema, PrefixMap>> loaded = Schema.fromString(this.shexRules);
 			Schema schema = loaded.get()._1;
 			PrefixMap pm = loaded.get()._2;
@@ -42,7 +40,8 @@ public class SKOSValidatorShexImpl implements SKOSValidator{
 			Result<Typing> result = Schema.matchSchema(iri, rdf, schema,false);
 		//	showResult(Scala2Java.convertRestultsToJava(result));
 			System.out.println(result.isValid());
-			return result.isValid();
+			this.context.setValid(result.isValid());
+
 		} catch (IOException e) {
 			throw new VaskosModelException(e, "Reading File");
 		}

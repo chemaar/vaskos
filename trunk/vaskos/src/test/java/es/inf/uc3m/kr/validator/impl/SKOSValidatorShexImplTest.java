@@ -11,6 +11,7 @@ import junit.framework.Assert;
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.Test;
 
+import es.inf.uc3m.kr.validator.to.ValidationContext;
 import es.weso.rdfgraph.nodes.IRI;
 
 public class SKOSValidatorShexImplTest {
@@ -25,8 +26,9 @@ private static final String SKOS_SHEX_RULES = "src/main/resources/skos/shex/rule
 		URI iri = new URI("http://example.org/x");
 		String shexFile = "src/test/resources/shex/test/rules/issue.shex";
 		String rdfFile = "src/test/resources/shex/test/sources/accepted/issue.ttl";
-		SKOSValidatorShexImpl validator = new SKOSValidatorShexImpl(shexFile, iri);
-		Assert.assertTrue(validator.validate(rdfFile));
+		ValidationContext vc = createValidationContext(iri, shexFile, rdfFile);
+		SKOSValidatorShexImpl validator = new SKOSValidatorShexImpl();
+		Assert.assertTrue(validator.validate(vc).isValid());
 	}
 	
 //	@Test
@@ -34,8 +36,9 @@ private static final String SKOS_SHEX_RULES = "src/main/resources/skos/shex/rule
 		URI iri = new URI("http://example.org/x");
 		String shexFile = "src/test/resources/shex/test/rules/issue.shex";
 		String rdfFile = "src/test/resources/shex/test/sources/rejected/issue.ttl";
-		SKOSValidatorShexImpl validator = new SKOSValidatorShexImpl(shexFile, iri);
-		Assert.assertFalse(validator.validate(rdfFile));
+		ValidationContext vc = createValidationContext(iri, shexFile, rdfFile);
+		SKOSValidatorShexImpl validator = new SKOSValidatorShexImpl();
+		Assert.assertFalse(validator.validate(vc).isValid());
 	}
 	
 //	@Test
@@ -528,8 +531,18 @@ private static final String SKOS_SHEX_RULES = "src/main/resources/skos/shex/rule
 	
 	//Helper MEthods
 	protected static boolean executeTest(URI iri, String shexFile, String rdfFile) throws IOException{
-		SKOSValidatorShexImpl validator = new SKOSValidatorShexImpl(shexFile, iri);
-		return validator.validate(rdfFile);
+		ValidationContext vc = createValidationContext(iri, shexFile, rdfFile);
+		SKOSValidatorShexImpl validator = new SKOSValidatorShexImpl();
+		return validator.validate(vc).isValid();
+	}
+
+	private static ValidationContext createValidationContext(URI iri,
+			String shexFile, String rdfFile) {
+		ValidationContext vc = new ValidationContext();
+		vc.setStartingIRI(iri);
+		vc.setShexFile(shexFile);
+		vc.setLocalFile(rdfFile);
+		return vc;
 	}
 	
 	//FIXME: Online version works
@@ -538,8 +551,9 @@ private static final String SKOS_SHEX_RULES = "src/main/resources/skos/shex/rule
 		URI iri = new URI("http://example.org/MyConcept");
 		String shexFile = SKOS_SHEX_RULES;
 		String rdfFile = "src/test/resources/skos/test/sources/rejected/rejected-2.ttl";
-		SKOSValidatorShexImpl validator = new SKOSValidatorShexImpl(shexFile, iri);
-		Assert.assertFalse(validator.validate(rdfFile));
+		ValidationContext vc = createValidationContext(iri, shexFile, rdfFile);
+		SKOSValidatorShexImpl validator = new SKOSValidatorShexImpl();
+		Assert.assertFalse(validator.validate(vc).isValid());
 	}
 
 }
