@@ -18,30 +18,23 @@ import es.inf.uc3m.kr.validator.utils.SPARQLUtils;
 
 public class SKOSValidatorSPARQLImpl extends SKOSValidatorAdapter{
 	
-	private String []sparqlFiles;
 
 	public SKOSValidatorSPARQLImpl() throws IOException{
 	
 	}
 
 	public void execute() {
-		try {
-			this.sparqlFiles = this.context.getSparqlFiles();
-			ResourceLoader resourceLoader = new FilesResourceLoader(new String []{this.context.getLocalFile()});
-			//FIXME: Move to context
-			VaskosModelWrapper wrapper = new JenaRDFModelWrapper(resourceLoader, RDFFormat.TURTLE.getName());
-			Model model = (Model) wrapper.getModel();
-			boolean valid = Boolean.TRUE;
-			
-			//FIXME: Move to context
-			for(int i = 0; valid && i<this.sparqlFiles.length;i++){
-				String queryString = FileUtils.readFile(this.sparqlFiles[i], StandardCharsets.UTF_8);;
-				valid = valid && SPARQLUtils.runQuestion(model, queryString);
-			}
-			this.context.setValid(valid);
-		} catch (IOException e) {
-			throw new VaskosModelException(e, "Reading File");
+		String[] sparqlQueries = this.context.getStringSPARQLqueries();
+		ResourceLoader resourceLoader = new FilesResourceLoader(new String []{this.context.getLocalFile()});
+		//FIXME: Move to context
+		VaskosModelWrapper wrapper = new JenaRDFModelWrapper(resourceLoader, RDFFormat.TURTLE.getName());
+		Model model = (Model) wrapper.getModel();
+		boolean valid = Boolean.TRUE;
+		
+		for(int i = 0; valid && i<sparqlQueries.length;i++){
+			valid = valid && SPARQLUtils.runQuestion(model, sparqlQueries[i]);
 		}
+		this.context.setValid(valid);
 	}
 	
 	

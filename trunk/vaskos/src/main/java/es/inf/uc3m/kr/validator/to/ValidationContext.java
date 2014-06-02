@@ -1,8 +1,13 @@
 package es.inf.uc3m.kr.validator.to;
 
+import java.io.IOException;
 import java.net.URI;
+import java.nio.charset.StandardCharsets;
 
 import com.hp.hpl.jena.rdf.model.Model;
+
+import es.inf.uc3m.kr.validator.utils.FileUtils;
+import es.inf.uc3m.kr.validator.utils.SPARQLUtils;
 
 public class ValidationContext {
 	
@@ -16,6 +21,7 @@ public class ValidationContext {
 	private Model inferredModel;
 	private MessageManager messenger;
 	private boolean valid;
+	private String[] stringSPARQLqueries;
 	
 	public ValidationContext() {
 		super();
@@ -86,8 +92,22 @@ public class ValidationContext {
 	public String[] getSparqlFiles() {
 		return sparqlFiles;
 	}
-	public void setSparqlFiles(String[] sparqlFiles) {
+	public void setSparqlFiles(String[] sparqlFiles) throws IOException {
 		this.sparqlFiles = sparqlFiles;
+		this.loadQueries(this.sparqlFiles);
+	}
+	private void loadQueries(String[] sparqlFiles2) throws IOException {
+		this.stringSPARQLqueries = new String[this.sparqlFiles.length];
+		for(int i = 0; i<this.sparqlFiles.length;i++){
+			this.stringSPARQLqueries [i] = FileUtils.readFile(this.sparqlFiles[i], StandardCharsets.UTF_8);
+		}
+		
+	}
+	public String[] getStringSPARQLqueries() {
+		return stringSPARQLqueries;
+	}
+	public void setStringSPARQLqueries(String[] stringSPARQLqueries) {
+		this.stringSPARQLqueries = stringSPARQLqueries;
 	}
 	
 	

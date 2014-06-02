@@ -16,7 +16,12 @@ public class SKOSValidatorSPARQLImplTest {
 			String[] sparqlFiles) {
 		ValidationContext vc = new ValidationContext();
 		vc.setLocalFile(rdfFile);
-		vc.setSparqlFiles(sparqlFiles);
+		try {
+			vc.setSparqlFiles(sparqlFiles);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return vc;
 	}
 
