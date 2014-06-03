@@ -13,6 +13,7 @@ import es.inf.uc3m.kr.validator.utils.SPARQLRulesLoader;
 
 public class FullSKOSValidatorSPARQLImplTest {
 
+	protected static final String SRC_TEST_RESOURCES = "src/test/resources/";
 	private static ValidationContext createValidationContext(String rdfFile,
 			String[] sparqlFiles) {
 		ValidationContext vc = new ValidationContext();
@@ -28,7 +29,7 @@ public class FullSKOSValidatorSPARQLImplTest {
 
 	@Test
 	public void testAccept() throws IOException {
-		String rdfFile = "skos/sparql/test/accepted/mountain-bike-simple.ttl";
+		String rdfFile = SRC_TEST_RESOURCES+"skos/sparql/test/accepted/mountain-bike-simple.ttl";
 		String[] sparqlFiles = SPARQLRulesLoader.getSPARQLRuleFiles();
 		ValidationContext vc = createValidationContext(rdfFile, sparqlFiles);
 		SKOSValidatorSPARQLImpl validator = new SKOSValidatorSPARQLImpl();

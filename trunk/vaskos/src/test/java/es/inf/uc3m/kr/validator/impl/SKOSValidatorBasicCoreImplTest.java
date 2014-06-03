@@ -9,6 +9,7 @@ import es.inf.uc3m.kr.validator.to.ValidationContext;
 
 public class SKOSValidatorBasicCoreImplTest {
 
+	protected static final String SRC_TEST_RESOURCES = "src/test/resources/";
 	@Before
 	public void setUp() throws Exception {
 	}
@@ -20,7 +21,7 @@ public class SKOSValidatorBasicCoreImplTest {
 	@Test
 	public void testValidate() {
 		ValidationContext vc = new ValidationContext();
-		vc.setLocalFile("file:///G://repositories/github/vaskos/trunk/vaskos/src/test/resources/skos/sparql/test/accepted/mountain-bike-simple.ttl");
+		vc.setUriFile("file:///G://repositories/github/vaskos/trunk/vaskos/src/test/resources/skos/sparql/test/accepted/mountain-bike-simple.ttl");
 		SKOSValidatorCoreBasicImpl validator = new SKOSValidatorCoreBasicImpl();
 		validator.validate(vc);
 	}

@@ -10,6 +10,7 @@ import es.inf.uc3m.kr.validator.to.ValidationContext;
 
 public class SKOSValidatorCoreOntologyImplTest {
 
+	protected static final String SRC_TEST_RESOURCES = "src/test/resources/";
 	@Before
 	public void setUp() throws Exception {
 	}
@@ -21,7 +22,7 @@ public class SKOSValidatorCoreOntologyImplTest {
 	@Test
 	public void testValidate() {
 		ValidationContext vc = new ValidationContext();
-		vc.setLocalFile("skos/mountain-bike-simple-test.ttl");
+		vc.setLocalFile(SRC_TEST_RESOURCES+"skos/mountain-bike-simple-test.ttl");
 		SKOSValidatorCoreOntologyImpl validator = new SKOSValidatorCoreOntologyImpl();
 		validator.validate(vc);
 	}
