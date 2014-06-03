@@ -174,7 +174,7 @@
 			      <configuration>
 				<archive>
 				  <manifest>
-				    <mainClass>ValidatorAppServ</mainClass>
+				    <mainClass>main.ValidatorAppServ</mainClass>
 				  </manifest>
 				</archive>
 				<descriptorRefs>

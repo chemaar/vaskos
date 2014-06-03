@@ -42,5 +42,15 @@ public class ValidatorAppServTest {
 		ValidatorAppServ validator = new ValidatorAppServ();
 		Assert.assertTrue(validator.simpleValidation(vc).isValid());
 	}
+	
+	@Test
+	public void testSimpleValidateHTTPS() {
+		String urlFile = "https://raw.githubusercontent.com/chemaar/vaskos/master/trunk/vaskos/src/test/resources/skos/sparql/test/accepted/mountain-bike-simple.ttl";
+		String[] sparqlFiles = SPARQLRulesLoader.getSPARQLRuleFiles();
+		ValidationContext vc = createValidationContext(urlFile, sparqlFiles);
+		ValidatorAppServ validator = new ValidatorAppServ();
+		Assert.assertTrue(validator.simpleValidation(vc).isValid());
+	}
+
 
 }
