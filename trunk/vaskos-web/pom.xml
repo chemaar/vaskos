@@ -44,6 +44,14 @@
 			<artifactId>jettison</artifactId>
 			<version>1.2</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>es.uc3m.inf.kr</groupId>
+			<artifactId>vaskos</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		
+		
 </dependencies>
 
 

@@ -10,7 +10,7 @@
 		</init-param>
 		<init-param>
 			<param-name>com.sun.jersey.config.property.packages</param-name>
-			<param-value>es.kr.inf.uc3m.vaskos.services</param-value>
+			<param-value>es.inf.uc3m.kr.vaskos.services</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
