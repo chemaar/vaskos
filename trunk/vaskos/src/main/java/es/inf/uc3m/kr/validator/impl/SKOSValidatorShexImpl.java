@@ -51,7 +51,7 @@ public class SKOSValidatorShexImpl extends SKOSValidatorAdapter{
 				ValidationContextUtils.createBaseModel(this.context);
 			}
 			//Only for shexscala
-			String rdfContent = RDFSyntaxHelper.serializeModel(this.context.getBaseModel(), RDFFormat.TURTLE);
+			String rdfContent = this.context.getLines(RDFFormat.TURTLE);
 		
 			
 			Try<Tuple2<Schema, PrefixMap>> loaded = Schema.fromString(this.shexRules);
@@ -59,7 +59,7 @@ public class SKOSValidatorShexImpl extends SKOSValidatorAdapter{
 			PrefixMap pm = loaded.get()._2;
 			RDFTriples rdftriples = new RDFTriples(null , pm);
 			RDF rdf = rdftriples.parse(rdfContent).get();
-			Result<Typing> result = Schema.matchSchema(iri, rdf, schema,false);
+			Result<Typing> result = Schema.matchSchema(this.iri, rdf, schema,false);
 			this.context.setValid(result.isValid());
 			logger.info("Finish validation in "+this.getClass().getSimpleName()+" with context "+this.context);
 		} catch (IOException e) {

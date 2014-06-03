@@ -31,7 +31,7 @@ public class ExternalizeFilesResourceLoader extends FilesResourceLoader{
 		InputStream in;
 		try {
 			File file = new File(filename);
-			logger.info("Opening file " + file.getAbsolutePath());
+			logger.info("Opening file "+filename+" absolute path " + file.getAbsolutePath());
 			in = new FileInputStream(file);
 		} catch (FileNotFoundException e) {
 			logger.error("Resource file not found: " + filename);

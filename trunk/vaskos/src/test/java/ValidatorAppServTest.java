@@ -12,10 +12,10 @@ import es.inf.uc3m.kr.validator.utils.SPARQLRulesLoader;
 
 public class ValidatorAppServTest {
 
-	private static ValidationContext createValidationContext(String rdfFile,
+	private static ValidationContext createValidationContext(String urlFile,
 			String[] sparqlFiles) {
 		ValidationContext vc = new ValidationContext();
-		vc.setLocalFile(rdfFile);
+		vc.setUriFile(urlFile);
 		try {
 			vc.setSparqlFiles(sparqlFiles);
 		} catch (IOException e) {
@@ -26,9 +26,9 @@ public class ValidatorAppServTest {
 	}
 	@Test
 	public void testValidate() {
-		String rdfFile = "file:///G://repositories/github/vaskos/trunk/vaskos/src/test/resources/skos/sparql/test/accepted/mountain-bike-simple.ttl";
+		String urlFile = "file:///G://repositories/github/vaskos/trunk/vaskos/src/test/resources/skos/sparql/test/accepted/mountain-bike-simple.ttl";
 		String[] sparqlFiles = SPARQLRulesLoader.getSPARQLRuleFiles();
-		ValidationContext vc = createValidationContext(rdfFile, sparqlFiles);
+		ValidationContext vc = createValidationContext(urlFile, sparqlFiles);
 		ValidatorAppServ validator = new ValidatorAppServ();
 		Assert.assertTrue(validator.validate(vc).isValid());
 	}

@@ -12,10 +12,11 @@ import org.openrdf.rio.RDFFormat;
 import com.hp.hpl.jena.rdf.model.Model;
 
 import es.inf.uc3m.kr.validator.utils.FileUtils;
+import es.inf.uc3m.kr.validator.utils.RDFSyntaxHelper;
 import es.inf.uc3m.kr.validator.utils.SPARQLUtils;
 
 public class ValidationContext {
-	
+
 	protected static Logger logger = Logger.getLogger(ValidationContext.class);
 	private String localFile;
 	private String uriFile;
@@ -32,18 +33,18 @@ public class ValidationContext {
 	private RDFFormat format;
 	private long startTime;
 	private long endTime;
-	
+
 	public ValidationContext() {
 		super();
-		this.localFile = "";
-		this.uriFile = "";
-		this.endpoint = "";
+		this.localFile = null;
+		this.uriFile = null;
+		this.endpoint = null;
 		this.baseModel = null;
 		this.inferredModel = null;
 		this.messenger = new MessageManager();
 		this.valid = Boolean.FALSE;
 		this.shexFile = null;
-		this.startingIRI = null;
+		this.startingIRI = URI.create("http://example.org/A");
 		this.format = RDFFormat.TURTLE;
 	}
 	public String getLocalFile() {
@@ -115,7 +116,7 @@ public class ValidationContext {
 			InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(this.sparqlFiles[i]);
 			this.stringSPARQLqueries [i] = FileUtils.convertStreamToString(is);
 		}
-		
+
 	}
 	public String[] getStringSPARQLqueries() {
 		return stringSPARQLqueries;
@@ -141,9 +142,23 @@ public class ValidationContext {
 	public void setEndTime(long endTime) {
 		this.endTime = endTime;
 	}
+
 	public String getLines() {
-		return lines;
+		if(this.lines == null && this.baseModel!=null){
+			try {
+				return RDFSyntaxHelper.serializeModel(getBaseModel(), RDFFormat.TURTLE);
+			} catch (IOException e) {
+				return "";
+			}
+		}
+		return this.lines;
+
 	}
+
+	public String getLines(RDFFormat format) throws IOException {
+		return RDFSyntaxHelper.serializeModel(getBaseModel(), format);
+	}
+
 	public void setLines(String lines) {
 		this.lines = lines;
 	}
@@ -157,11 +172,11 @@ public class ValidationContext {
 				+ ", endTime=" + endTime + "]";
 	}
 
-	
+
 	public boolean isLocalFile(){
 		return this.localFile!=null;
 	}
-	
+
 	public boolean isUriFile(){
 		return this.uriFile!=null;
 	}
@@ -169,14 +184,14 @@ public class ValidationContext {
 	public boolean isEndpoint(){
 		return this.endpoint!=null;
 	}
-	
+
 	public boolean isLines(){
 		return this.lines!=null;
 	}
-	
+
 
 	public boolean hasBaseModel(){
 		return this.baseModel!=null;
 	}
-	
+
 }

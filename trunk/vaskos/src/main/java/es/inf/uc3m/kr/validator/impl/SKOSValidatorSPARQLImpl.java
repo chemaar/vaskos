@@ -11,6 +11,7 @@ import es.inf.uc3m.kr.validator.loader.FilesResourceLoader;
 import es.inf.uc3m.kr.validator.loader.JenaRDFModelWrapper;
 import es.inf.uc3m.kr.validator.loader.ResourceLoader;
 import es.inf.uc3m.kr.validator.loader.VaskosModelWrapper;
+import es.inf.uc3m.kr.validator.to.ValidationContextUtils;
 import es.inf.uc3m.kr.validator.utils.SPARQLUtils;
 
 public class SKOSValidatorSPARQLImpl extends SKOSValidatorAdapter{
@@ -23,9 +24,10 @@ public class SKOSValidatorSPARQLImpl extends SKOSValidatorAdapter{
 	public void execute() {
 		logger.info("Starting validation in "+this.getClass().getSimpleName()+" with context "+this.context);
 		String[] sparqlQueries = this.context.getStringSPARQLqueries();
-		ResourceLoader resourceLoader = new FilesResourceLoader(new String []{this.context.getLocalFile()});
-		VaskosModelWrapper wrapper = new JenaRDFModelWrapper(resourceLoader, this.context.getFormat().getName());
-		Model model = (Model) wrapper.getModel();
+		if(!this.context.hasBaseModel()){
+			ValidationContextUtils.createBaseModel(this.context);
+		}
+		Model model = this.context.getBaseModel();
 		boolean valid = Boolean.TRUE;
 		
 		for(int i = 0; valid && i<sparqlQueries.length;i++){

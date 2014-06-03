@@ -20,7 +20,7 @@ public void execute(){
 //			SKOSDataset skosCoreOntology = 
 //					manager.loadDataset(
 //							Thread.currentThread().getContextClassLoader().getResource(SKOS_ONTOLOGY_FILE).toURI());
-			URI inputSource = new URI(context.getLocalFile());
+			URI inputSource = new URI(context.getUriFile());
 			//		Thread.currentThread().getContextClassLoader().getResource(context.getLocalFile()).toURI();
 			//2-Load SKOS dataset, 2.1 Load new SKOS definitions?
 			SKOSDataset dataSet = manager.loadDataset(inputSource);
