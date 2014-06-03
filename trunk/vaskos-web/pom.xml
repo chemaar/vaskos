@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>es.uc3m.inf.kr</groupId>
-	<artifactId>vaskos</artifactId>
+	<artifactId>vaskos-web</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>VASKOS WEB Portal</name>
 	<packaging>war</packaging>
