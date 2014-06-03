@@ -3,6 +3,7 @@ import static org.junit.Assert.*;
 import java.io.IOException;
 
 import junit.framework.Assert;
+import main.ValidatorAppServ;
 
 import org.junit.Test;
 
