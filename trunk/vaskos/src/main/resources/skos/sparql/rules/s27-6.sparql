@@ -9,7 +9,7 @@ ASK WHERE{
 			 OPTIONAL{
 				?broader skos:broader ?otherBroader.
 			}
-			 FILTER NOT EXISTS { ?concept skos:broader ?otherBroader}.
+			 FILTER NOT EXISTS{ ?concept skos:broader ?otherBroader}.
 	}
 }
 

@@ -6,7 +6,7 @@ ask where{
 	SELECT (count (?concept) as ?nconcepts) WHERE{
 	 ?concept a skos:Concept.
 	 ?concept skos:exactMatch ?match.
-	 FILTER NOT EXIST {?concept ?skos:closeMatch ?match}.
+	 FILTER NOT EXISTS{?concept skos:closeMatch ?match}.
 	}
 	}
  FILTER (?nconcepts=0).

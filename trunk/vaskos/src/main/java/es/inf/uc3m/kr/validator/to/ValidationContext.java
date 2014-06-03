@@ -1,10 +1,12 @@
 package es.inf.uc3m.kr.validator.to;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
+import org.apache.log4j.Logger;
 import org.openrdf.rio.RDFFormat;
 
 import com.hp.hpl.jena.rdf.model.Model;
@@ -14,6 +16,7 @@ import es.inf.uc3m.kr.validator.utils.SPARQLUtils;
 
 public class ValidationContext {
 	
+	protected static Logger logger = Logger.getLogger(ValidationContext.class);
 	private String localFile;
 	private String uriFile;
 	private String endpoint;
@@ -107,7 +110,10 @@ public class ValidationContext {
 	private void loadQueries(String[] sparqlFiles2) throws IOException {
 		this.stringSPARQLqueries = new String[this.sparqlFiles.length];
 		for(int i = 0; i<this.sparqlFiles.length;i++){
-			this.stringSPARQLqueries [i] = FileUtils.readFile(this.sparqlFiles[i], StandardCharsets.UTF_8);
+			//this.stringSPARQLqueries [i] = FileUtils.readFile(this.sparqlFiles[i], StandardCharsets.UTF_8);
+			logger.debug("Trying to load "+this.sparqlFiles[i]);
+			InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(this.sparqlFiles[i]);
+			this.stringSPARQLqueries [i] = FileUtils.convertStreamToString(is);
 		}
 		
 	}

@@ -10,7 +10,7 @@ ASK WHERE{
 				?related skos:related ?otherRelated.
 			}
 			FILTER (bound (?otherRelated)).
-		    FILTER NOT EXISTS { ?related skos:related ?otherRelated}.
+		    FILTER NOT EXISTS{ ?related skos:related ?otherRelated}.
 	}
 }
 

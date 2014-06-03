@@ -30,7 +30,7 @@ pbs-res:Mountain_Bike a skos:Concept;
     dcterms:identifier "1"^^xsd:string ;  	
 	skos:prefLabel "Mountain_Bike"@en;
 	skos:altLabel "Mountain_Bike_2"@en;
-	skos:hiddenLabel "Mountain_Bike"@en;
+	skos:hiddenLabel "Mountain_Bike_3"@en;
 	skos:notation "1"^^xsd:string ;
 	skos:changeNote "An example of change note."@en;
   	skos:editorialNote "An example of editorial note"@en;
@@ -38,8 +38,6 @@ pbs-res:Mountain_Bike a skos:Concept;
 	skos:scopeNote "An example of scope note"@en;
 	skos:closeMatch dbpedia-res:Mountain_Bike;
 	skos:semanticRelation pbs-res:Related ;
-	skos:broader pbs-res:Related ;
-	skos:related  pbs-res:Related ;
 	skos:inScheme pbs-res:ds .
 	
 

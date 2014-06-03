@@ -30,7 +30,12 @@ public class SKOSValidatorSPARQLImpl extends SKOSValidatorAdapter{
 		
 		for(int i = 0; valid && i<sparqlQueries.length;i++){
 			valid = valid && SPARQLUtils.runQuestion(model, sparqlQueries[i]);
+			if(!valid){
+				logger.info("This query has failed:");
+				logger.info(sparqlQueries[i]);
+			}
 		}
+		logger.info("SPARQL queries have been performed and valid is "+valid+".");
 		this.context.setValid(valid);
 		logger.info("Finish validation in "+this.getClass().getSimpleName()+" with context "+this.context);
 	}
