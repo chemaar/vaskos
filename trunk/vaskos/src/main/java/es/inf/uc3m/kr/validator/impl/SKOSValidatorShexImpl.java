@@ -7,6 +7,9 @@ import org.apache.log4j.Logger;
 
 
 
+
+import org.openrdf.rio.RDFFormat;
+
 import scala.Tuple2;
 import scala.util.Try;
 import es.inf.uc3m.kr.validator.SKOSValidator;
@@ -16,6 +19,7 @@ import es.inf.uc3m.kr.validator.loader.FilesResourceLoader;
 import es.inf.uc3m.kr.validator.loader.ResourceLoader;
 import es.inf.uc3m.kr.validator.to.ValidationContextUtils;
 import es.inf.uc3m.kr.validator.utils.FileUtils;
+import es.inf.uc3m.kr.validator.utils.RDFSyntaxHelper;
 import es.weso.monads.Result;
 import es.weso.parser.PrefixMap;
 import es.weso.rdf.RDF;
@@ -46,15 +50,16 @@ public class SKOSValidatorShexImpl extends SKOSValidatorAdapter{
 			if(!this.context.hasBaseModel()){
 				ValidationContextUtils.createBaseModel(this.context);
 			}
-			String rdfContent = FileUtils.readFile(context.getLocalFile(), 
-					StandardCharsets.UTF_8);
+			//Only for shexscala
+			String rdfContent = RDFSyntaxHelper.serializeModel(this.context.getBaseModel(), RDFFormat.TURTLE);
+		
+			
 			Try<Tuple2<Schema, PrefixMap>> loaded = Schema.fromString(this.shexRules);
 			Schema schema = loaded.get()._1;
 			PrefixMap pm = loaded.get()._2;
 			RDFTriples rdftriples = new RDFTriples(null , pm);
 			RDF rdf = rdftriples.parse(rdfContent).get();
 			Result<Typing> result = Schema.matchSchema(iri, rdf, schema,false);
-		//	showResult(Scala2Java.convertRestultsToJava(result));
 			this.context.setValid(result.isValid());
 			logger.info("Finish validation in "+this.getClass().getSimpleName()+" with context "+this.context);
 		} catch (IOException e) {

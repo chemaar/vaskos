@@ -10,6 +10,6 @@ public interface SKOSValidator {
 	static String SHEX_FILE = "skos/shex/rules/skos-concept.shex";
 	
 	public ValidationContext validate (ValidationContext context);
-	
+	public void setSuccessor(SKOSValidator successor);
 
 }

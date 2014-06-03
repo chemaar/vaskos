@@ -20,7 +20,7 @@ public class SKOSValidatorBasicCoreImplTest {
 	@Test
 	public void testValidate() {
 		ValidationContext vc = new ValidationContext();
-		vc.setLocalFile("skos/mountain-bike-simple-test.ttl");
+		vc.setLocalFile("file:///G://repositories/github/vaskos/trunk/vaskos/src/test/resources/skos/sparql/test/accepted/mountain-bike-simple.ttl");
 		SKOSValidatorCoreBasicImpl validator = new SKOSValidatorCoreBasicImpl();
 		validator.validate(vc);
 	}

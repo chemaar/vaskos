@@ -6,10 +6,8 @@ import org.apache.log4j.Logger;
 import org.semanticweb.skos.SKOSDataset;
 import org.semanticweb.skosapibinding.SKOSManager;
 
-import es.inf.uc3m.kr.validator.SKOSValidator;
 import es.inf.uc3m.kr.validator.SKOSValidatorAdapter;
 import es.inf.uc3m.kr.validator.exception.VaskosModelException;
-import es.inf.uc3m.kr.validator.to.ValidationContext;
 
 public class SKOSValidatorCoreBasicImpl extends SKOSValidatorAdapter{
 	protected static Logger logger = Logger.getLogger(SKOSValidatorCoreBasicImpl.class);
