@@ -2,13 +2,13 @@
 
 import java.io.IOException;
 
-import es.inf.uc3m.kr.validator.SKOSValidator;
-import es.inf.uc3m.kr.validator.impl.SKOSValidatorCoreBasicImpl;
-import es.inf.uc3m.kr.validator.impl.SKOSValidatorSPARQLImpl;
-import es.inf.uc3m.kr.validator.impl.SKOSValidatorShexImpl;
-import es.inf.uc3m.kr.validator.to.MessageTO;
-import es.inf.uc3m.kr.validator.to.MessageType;
-import es.inf.uc3m.kr.validator.to.ValidationContext;
+import es.inf.uc3m.kr.vaskos.SKOSValidator;
+import es.inf.uc3m.kr.vaskos.impl.SKOSValidatorCoreBasicImpl;
+import es.inf.uc3m.kr.vaskos.impl.SKOSValidatorSPARQLImpl;
+import es.inf.uc3m.kr.vaskos.impl.SKOSValidatorShexImpl;
+import es.inf.uc3m.kr.vaskos.to.MessageTO;
+import es.inf.uc3m.kr.vaskos.to.MessageType;
+import es.inf.uc3m.kr.vaskos.to.ValidationContext;
 
 
 public class ValidatorAppServ {

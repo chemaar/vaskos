@@ -6,8 +6,8 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import es.inf.uc3m.kr.validator.to.ValidationContext;
-import es.inf.uc3m.kr.validator.utils.SPARQLRulesLoader;
+import es.inf.uc3m.kr.vaskos.to.ValidationContext;
+import es.inf.uc3m.kr.vaskos.utils.SPARQLRulesLoader;
 
 
 public class ValidatorAppServTest {

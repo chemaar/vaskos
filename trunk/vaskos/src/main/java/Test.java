@@ -31,8 +31,8 @@ import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.reasoner.ValidityReport;
 import com.hp.hpl.jena.vocabulary.OWL;
 
-import es.inf.uc3m.kr.validator.SKOSValidator;
-import es.inf.uc3m.kr.validator.utils.Scala2Java;
+import es.inf.uc3m.kr.vaskos.SKOSValidator;
+import es.inf.uc3m.kr.vaskos.utils.Scala2Java;
 import es.weso.monads.Result;
 import es.weso.parser.PrefixMap;
 import es.weso.rdf.RDF;
