@@ -19,18 +19,27 @@ public class ValidatorAppServTest {
 		try {
 			vc.setSparqlFiles(sparqlFiles);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return vc;
 	}
 	@Test
-	public void testValidate() {
+	public void testFullValidate() {
+		//FIXME: URIS
 		String urlFile = "file:///G://repositories/github/vaskos/trunk/vaskos/src/test/resources/skos/sparql/test/accepted/mountain-bike-simple.ttl";
 		String[] sparqlFiles = SPARQLRulesLoader.getSPARQLRuleFiles();
 		ValidationContext vc = createValidationContext(urlFile, sparqlFiles);
 		ValidatorAppServ validator = new ValidatorAppServ();
-		Assert.assertTrue(validator.validate(vc).isValid());
+		Assert.assertTrue(validator.fullValidation(vc).isValid());
+	}
+
+	@Test
+	public void testSimpleValidate() {
+		String urlFile = "file:///G://repositories/github/vaskos/trunk/vaskos/src/test/resources/skos/sparql/test/accepted/mountain-bike-simple.ttl";
+		String[] sparqlFiles = SPARQLRulesLoader.getSPARQLRuleFiles();
+		ValidationContext vc = createValidationContext(urlFile, sparqlFiles);
+		ValidatorAppServ validator = new ValidatorAppServ();
+		Assert.assertTrue(validator.simpleValidation(vc).isValid());
 	}
 
 }
