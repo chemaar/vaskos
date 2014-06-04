@@ -83,7 +83,9 @@ public class VaskosServiceRest {
 		result.setNanotime(context.getEndTime()-context.getStartTime());
 		result.setTime(TimeUnit.MILLISECONDS.convert(result.getNanotime(), TimeUnit.NANOSECONDS));
 		List<DisplayMessageTO> errors = messages2Display(context.getMessenger().getErrors());
+		List<DisplayMessageTO> info = messages2Display(context.getMessenger().getInfo());
 		result.setErrors(errors);
+		result.setInfo(info);
 	
 		return result;
 	}

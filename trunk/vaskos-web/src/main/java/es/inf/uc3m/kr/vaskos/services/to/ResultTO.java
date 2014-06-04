@@ -11,6 +11,7 @@ import java.util.List;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "resultTO", propOrder = {
     "errors",
+    "info",
     "valid",
     "time",
     "nanotime"
@@ -18,6 +19,7 @@ import java.util.List;
 public class ResultTO {
 
 	private List<DisplayMessageTO> errors;
+	private List<DisplayMessageTO> info;
 	private boolean valid;
 	private long time;
 	private long nanotime;
@@ -56,6 +58,16 @@ public class ResultTO {
 
 	public void setErrors(List<DisplayMessageTO> errors) {
 		this.errors = errors;
+	}
+
+
+	public List<DisplayMessageTO> getInfo() {
+		return info;
+	}
+
+
+	public void setInfo(List<DisplayMessageTO> info) {
+		this.info = info;
 	}
 	
 	
