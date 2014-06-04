@@ -17,12 +17,15 @@ public class ValidatorAppServ {
 	public ValidationContext fullValidation (ValidationContext context){
 
 		try {
+			context.setStartTime(System.nanoTime());
 			SKOSValidator coreValidator = new SKOSValidatorCoreBasicImpl();
 			SKOSValidator shexValidator = new SKOSValidatorShexImpl();
 			SKOSValidator sparqlValidator = new SKOSValidatorSPARQLImpl();
 			coreValidator.setSuccessor(shexValidator);
 			shexValidator.setSuccessor(sparqlValidator);
-			return coreValidator.validate(context);
+			ValidationContext endContext = coreValidator.validate(context);
+			endContext.setEndTime(System.nanoTime());
+			return endContext;
 		} catch (IOException e) {
 			MessageTO error = new MessageTO(e.getMessage(), MessageType.ERROR);
 			context.getMessenger().getErrors().add(error );
@@ -33,12 +36,14 @@ public class ValidatorAppServ {
 	}
 	
 	public ValidationContext simpleValidation (ValidationContext context){
-
 		try {
+			context.setStartTime(System.currentTimeMillis());
 			SKOSValidator shexValidator = new SKOSValidatorShexImpl();
 			SKOSValidator sparqlValidator = new SKOSValidatorSPARQLImpl();
 			shexValidator.setSuccessor(sparqlValidator);
-			return shexValidator.validate(context);
+			ValidationContext endContext = shexValidator.validate(context);
+			endContext.setEndTime(System.currentTimeMillis());
+			return endContext;
 		} catch (IOException e) {
 			MessageTO error = new MessageTO(e.getMessage(), MessageType.ERROR);
 			context.getMessenger().getErrors().add(error );

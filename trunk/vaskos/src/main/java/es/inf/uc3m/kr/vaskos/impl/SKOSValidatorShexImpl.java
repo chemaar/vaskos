@@ -4,6 +4,7 @@ import java.io.IOException;
 
 
 
+
 import org.apache.jena.riot.RDFFormat;
 import org.apache.log4j.Logger;
 
@@ -12,8 +13,11 @@ import scala.util.Try;
 import es.inf.uc3m.kr.vaskos.SKOSValidator;
 import es.inf.uc3m.kr.vaskos.SKOSValidatorAdapter;
 import es.inf.uc3m.kr.vaskos.exception.VaskosModelException;
+import es.inf.uc3m.kr.vaskos.to.MessageTO;
+import es.inf.uc3m.kr.vaskos.to.MessageType;
 import es.inf.uc3m.kr.vaskos.to.ValidationContextUtils;
 import es.inf.uc3m.kr.vaskos.utils.FileUtils;
+import es.inf.uc3m.kr.vaskos.utils.SPARQLRulesLoader;
 import es.weso.monads.Result;
 import es.weso.parser.PrefixMap;
 import es.weso.rdf.RDF;
@@ -55,6 +59,13 @@ public class SKOSValidatorShexImpl extends SKOSValidatorAdapter{
 			RDF rdf = rdftriples.parse(rdfContent).get();
 			Result<Typing> result = Schema.matchSchema(this.iri, rdf, schema,false);
 			this.context.setValid(result.isValid());
+			if(this.context.isValid()){
+				//FIXME: Extract problems from shexscala
+				MessageTO message = new MessageTO();
+				message.setLevel(MessageType.ERROR);
+				message.setMessage("Shex validation has not been sucessful");
+				this.context.getMessenger().getErrors().add(message);
+			}
 			logger.info("Finish validation in "+this.getClass().getSimpleName()+" with context "+this.context);
 		} catch (IOException e) {
 			this.context.setValid(Boolean.FALSE);

@@ -29,6 +29,9 @@ public class SPARQLRulesLoader {
 		Set<String> keySet = sparqlRules.keySet();
 		return  keySet.toArray(new String[keySet.size()]);
 	}
-
+	public static String getMessage(String key){
+		String message = sparqlRules.get(key);
+		return  (message==null?"":message);
+	}
 
 }

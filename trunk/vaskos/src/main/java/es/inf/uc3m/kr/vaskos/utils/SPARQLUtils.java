@@ -40,7 +40,6 @@ import es.inf.uc3m.kr.vaskos.exception.VaskosModelException;
 
 public class SPARQLUtils {
 
-	protected static Logger logger = Logger.getLogger(SPARQLUtils.class);
 
 	public static QuerySolution[] executeSimpleSparql(Model model, String queryStr) {
 		LinkedList results = new LinkedList();        
@@ -108,7 +107,6 @@ public class SPARQLUtils {
 	public static boolean runQuestion(Model model,String queryString) {
 		Query query = QueryFactory.create(queryString) ;
 		QueryExecution qe = QueryExecutionFactory.create(query, model);  
-		logger.info(QueryExecution.class);
 		boolean result = qe.execAsk() ;
 		qe.close() ;
 		return result; 

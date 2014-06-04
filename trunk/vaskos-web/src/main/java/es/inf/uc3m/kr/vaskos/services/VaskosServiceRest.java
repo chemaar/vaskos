@@ -3,6 +3,9 @@ package es.inf.uc3m.kr.vaskos.services;
 
 
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -11,6 +14,8 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
+import es.inf.uc3m.kr.vaskos.services.to.ResultTO;
+import es.inf.uc3m.kr.vaskos.to.MessageTO;
 import es.inf.uc3m.kr.vaskos.to.ValidationContext;
 import es.inf.uc3m.kr.vaskos.utils.SPARQLRulesLoader;
 import main.ValidatorAppServ;
@@ -18,7 +23,7 @@ import main.ValidatorAppServ;
 @Path("/vaskos")
 public class VaskosServiceRest {
 	ValidatorAppServ validator = new ValidatorAppServ();
-	
+
 
 	@GET
 	@Path("hello")
@@ -27,32 +32,55 @@ public class VaskosServiceRest {
 		try{
 			return "Hello";
 		}catch(Exception e){
-			 throw new WebApplicationException(Response.Status.BAD_REQUEST);
+			throw new WebApplicationException(Response.Status.BAD_REQUEST);
 		}
 
 	}
-	
-	
-	
+
+
+
 	@GET
 	@ProduceMime({"text/plain", "application/xml", "application/json"})
-	public String validate(@QueryParam("uri") String uriFile){
+	public ResultTO validate(@QueryParam("uri") String uriFile){
 		try{
-			System.out.println("VALIDATING "+this.validator.simpleValidation(createValidationContext(uriFile)).isValid());
-			return "";
+
+			ValidationContext context = this.validator.simpleValidation(createValidationContext(uriFile));
+			ResultTO result = context2Result(context);
+			return result;
 		}catch(Exception e){
-			e.printStackTrace();
-			 throw new WebApplicationException(Response.Status.BAD_REQUEST);
+			throw new WebApplicationException(Response.Status.BAD_REQUEST);
 		}
 
 	}
+
+
+	private ResultTO context2Result(ValidationContext context) {
+		ResultTO result = new ResultTO();
+		result.setValid(context.isValid());
+		//This time is nanoseconds
+		result.setNanotime(context.getEndTime()-context.getStartTime());
+		result.setTime(TimeUnit.MILLISECONDS.convert(result.getNanotime(), TimeUnit.NANOSECONDS));
+		List<String> errors = messages2List(context.getMessenger().getErrors());
+		result.setErrors(errors);
 	
-	
+		return result;
+	}
+
+	private List<String> messages2List(List<MessageTO> messages){
+		List<String> stringMessages = new LinkedList<String>();
+		//FIXME: Move to Java 8 and use lambda expression
+		for(MessageTO message:messages){
+			stringMessages.add(message.getMessage());
+		}
+		return stringMessages;
+	}
+
+
 	private static ValidationContext createValidationContext(String urlFile) throws IOException {
 		ValidationContext vc = new ValidationContext();
 		vc.setUriFile(urlFile);
 		vc.setSparqlFiles(SPARQLRulesLoader.getSPARQLRuleFiles());
 		return vc;
 	}
-	
+
 }
