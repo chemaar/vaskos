@@ -8,6 +8,7 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
+import es.inf.uc3m.kr.vaskos.exception.VaskosModelException;
 import es.inf.uc3m.kr.vaskos.impl.SKOSValidatorSPARQLImpl;
 import es.inf.uc3m.kr.vaskos.to.ValidationContext;
 import es.inf.uc3m.kr.vaskos.utils.SPARQLRulesLoader;
@@ -22,8 +23,7 @@ public class FullSKOSValidatorSPARQLImplTest {
 		try {
 			vc.setSparqlFiles(sparqlFiles);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new VaskosModelException(e);
 		}
 		return vc;
 	}

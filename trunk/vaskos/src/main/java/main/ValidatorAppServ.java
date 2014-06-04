@@ -4,6 +4,7 @@ package main;
 import java.io.IOException;
 
 import es.inf.uc3m.kr.vaskos.SKOSValidator;
+import es.inf.uc3m.kr.vaskos.exception.VaskosModelException;
 import es.inf.uc3m.kr.vaskos.impl.SKOSValidatorCoreBasicImpl;
 import es.inf.uc3m.kr.vaskos.impl.SKOSValidatorSPARQLImpl;
 import es.inf.uc3m.kr.vaskos.impl.SKOSValidatorShexImpl;
@@ -26,7 +27,12 @@ public class ValidatorAppServ {
 			ValidationContext endContext = coreValidator.validate(context);
 			endContext.setEndTime(System.nanoTime());
 			return endContext;
-		} catch (IOException e) {
+		}catch (VaskosModelException e) {
+			MessageTO error = new MessageTO(e.getMessage(), MessageType.ERROR);
+			context.getMessenger().getErrors().add(error );
+			context.setValid(Boolean.FALSE);
+		}  
+		catch (IOException e) {
 			MessageTO error = new MessageTO(e.getMessage(), MessageType.ERROR);
 			context.getMessenger().getErrors().add(error );
 			context.setValid(Boolean.FALSE);
@@ -34,7 +40,7 @@ public class ValidatorAppServ {
 		return context;
 
 	}
-	
+
 	public ValidationContext simpleValidation (ValidationContext context){
 		try {
 			context.setStartTime(System.currentTimeMillis());
@@ -44,7 +50,12 @@ public class ValidatorAppServ {
 			ValidationContext endContext = shexValidator.validate(context);
 			endContext.setEndTime(System.currentTimeMillis());
 			return endContext;
-		} catch (IOException e) {
+		}catch (VaskosModelException e) {
+			MessageTO error = new MessageTO(e.getMessage(), MessageType.ERROR);
+			context.getMessenger().getErrors().add(error );
+			context.setValid(Boolean.FALSE);
+		} 
+		catch (IOException e) {
 			MessageTO error = new MessageTO(e.getMessage(), MessageType.ERROR);
 			context.getMessenger().getErrors().add(error );
 			context.setValid(Boolean.FALSE);

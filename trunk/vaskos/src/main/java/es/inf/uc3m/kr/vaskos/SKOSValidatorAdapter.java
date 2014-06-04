@@ -31,7 +31,6 @@ public abstract class SKOSValidatorAdapter implements SKOSValidator{
 			         return this.successor.validate(this.context);
 			 }
 		} catch (Exception e) {
-			e.printStackTrace();
 			throw new VaskosModelException(e);
 		}
 		

@@ -9,6 +9,7 @@ import main.ValidatorAppServ;
 
 import org.junit.Test;
 
+import es.inf.uc3m.kr.vaskos.exception.VaskosModelException;
 import es.inf.uc3m.kr.vaskos.to.ValidationContext;
 import es.inf.uc3m.kr.vaskos.utils.SPARQLRulesLoader;
 
@@ -21,7 +22,7 @@ public class VaskosServiceRestTest {
 		try {
 			vc.setSparqlFiles(sparqlFiles);
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw new VaskosModelException(e);
 		}
 		return vc;
 	}

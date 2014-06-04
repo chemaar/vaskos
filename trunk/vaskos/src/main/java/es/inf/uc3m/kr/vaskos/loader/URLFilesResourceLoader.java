@@ -27,7 +27,6 @@ public class URLFilesResourceLoader extends FilesResourceLoader {
             logger.error("Resource file not found: " + filename);
             throw e;
         } catch (IOException e) {
-        	e.printStackTrace();
         	 logger.error("Resource file can not be readed: " + filename);
              throw new FileNotFoundException("Resource file can not be readed: " + filename);
 		}        
