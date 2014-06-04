@@ -6,8 +6,10 @@ import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
+import org.apache.jena.riot.RDFFormat;
 import org.apache.log4j.Logger;
-import org.openrdf.rio.RDFFormat;
+
+
 
 import com.hp.hpl.jena.rdf.model.Model;
 

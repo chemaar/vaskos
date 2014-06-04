@@ -26,7 +26,7 @@ public class ValidationContextUtils {
 			}else if(vc.isEndpoint()){
 				//FIXME
 			}
-			wrapper= new JenaRDFModelWrapper(resourceLoader,vc.getFormat().getName());
+			wrapper= new JenaRDFModelWrapper(resourceLoader,vc.getFormat().getLang().getName());
 			vc.setBaseModel((Model) wrapper.getModel());
 		}
 	

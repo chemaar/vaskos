@@ -1,25 +1,19 @@
 package es.inf.uc3m.kr.vaskos.impl;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 
+
+
+import org.apache.jena.riot.RDFFormat;
 import org.apache.log4j.Logger;
-
-
-
-
-import org.openrdf.rio.RDFFormat;
 
 import scala.Tuple2;
 import scala.util.Try;
 import es.inf.uc3m.kr.vaskos.SKOSValidator;
 import es.inf.uc3m.kr.vaskos.SKOSValidatorAdapter;
 import es.inf.uc3m.kr.vaskos.exception.VaskosModelException;
-import es.inf.uc3m.kr.vaskos.loader.FilesResourceLoader;
-import es.inf.uc3m.kr.vaskos.loader.ResourceLoader;
 import es.inf.uc3m.kr.vaskos.to.ValidationContextUtils;
 import es.inf.uc3m.kr.vaskos.utils.FileUtils;
-import es.inf.uc3m.kr.vaskos.utils.RDFSyntaxHelper;
 import es.weso.monads.Result;
 import es.weso.parser.PrefixMap;
 import es.weso.rdf.RDF;

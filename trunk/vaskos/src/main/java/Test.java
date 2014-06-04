@@ -11,8 +11,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import org.mindswap.pellet.jena.PelletInfGraph;
-import org.mindswap.pellet.jena.PelletReasonerFactory;
+import org.apache.jena.riot.RDFFormat;
 
 import scala.Tuple2;
 import scala.collection.convert.Decorators.AsJavaCollection;
@@ -57,6 +56,7 @@ public class Test {
 	
 
 	public static void main(String[] args) throws IOException, URISyntaxException {
+		System.out.println(RDFFormat.TURTLE.getLang().getName());
 		String sheXontent = readFile("src/main/resources/shex/rules/issue.shex", StandardCharsets.UTF_8);
 		String rdfContent = readFile("src/main/resources/shex/sources/accepted/issue.ttl", StandardCharsets.UTF_8);
 		IRI iri = new IRI(new URI("http://example.org/x"));

@@ -3,23 +3,13 @@ package es.inf.uc3m.kr.vaskos.loader;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.apache.jena.riot.RDFFormat;
 import org.apache.log4j.Logger;
-import org.openrdf.rio.RDFFormat;
-
-
-
-
-
-
-
-
-
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 
 import es.inf.uc3m.kr.vaskos.exception.VaskosModelException;
-import es.inf.uc3m.kr.vaskos.exceptions.ResourceNotFoundException;
 import es.inf.uc3m.kr.vaskos.to.KnowledgeResourcesTO;
 
 public class JenaRDFModelWrapper implements VaskosModelWrapper{
@@ -28,7 +18,7 @@ public class JenaRDFModelWrapper implements VaskosModelWrapper{
 
     private ResourceLoader resourceLoader;
     private Model jenaRDFModel;
-    private String format = RDFFormat.RDFXML.toString();
+    private String format = RDFFormat.RDFXML.getLang().getName();
     
     public JenaRDFModelWrapper(ResourceLoader resourceLoader) {
         this.resourceLoader = resourceLoader;

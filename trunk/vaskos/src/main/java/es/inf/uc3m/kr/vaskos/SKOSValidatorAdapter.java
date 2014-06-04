@@ -6,8 +6,8 @@ import es.inf.uc3m.kr.vaskos.to.ValidationContext;
 
 
 public abstract class SKOSValidatorAdapter implements SKOSValidator{
-	protected SKOSValidator successor;
-	protected ValidationContext context;
+	protected SKOSValidator successor = null;
+	protected ValidationContext context = null;
 	
     public void setSuccessor(SKOSValidator successor){
             this.successor = successor;
@@ -31,6 +31,7 @@ public abstract class SKOSValidatorAdapter implements SKOSValidator{
 			         return this.successor.validate(this.context);
 			 }
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new VaskosModelException(e);
 		}
 		

@@ -1,20 +1,15 @@
 package es.inf.uc3m.kr.vaskos.impl;
 
-import static org.junit.Assert.*;
-
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
 import junit.framework.Assert;
 
-import org.apache.commons.lang3.tuple.Pair;
 import org.junit.Test;
 
 import es.inf.uc3m.kr.vaskos.SKOSValidator;
-import es.inf.uc3m.kr.vaskos.impl.SKOSValidatorShexImpl;
 import es.inf.uc3m.kr.vaskos.to.ValidationContext;
-import es.weso.rdfgraph.nodes.IRI;
 
 public class SKOSValidatorShexImplTest {
 	
