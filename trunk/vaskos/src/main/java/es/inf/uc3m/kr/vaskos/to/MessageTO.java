@@ -51,5 +51,9 @@ public class MessageTO {
 			return false;
 		return true;
 	}
+	@Override
+	public String toString() {
+		return "MessageTO [message=" + message + ", level=" + level + "]";
+	}
 
 }

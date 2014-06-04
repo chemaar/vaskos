@@ -27,11 +27,13 @@ public class ValidationContext {
 	private String shexFile;
 	private URI startingIRI;
 	private String []sparqlFiles;
+	private String []sparqlStatisticFiles;
 	private Model baseModel;
 	private Model inferredModel;
 	private MessageManager messenger;
 	private boolean valid;
 	private String[] stringSPARQLqueries;
+	private String [] stringSPARQLStatisticQueries;
 	private RDFFormat format;
 	private long startTime;
 	private long endTime;
@@ -103,22 +105,39 @@ public class ValidationContext {
 	public void setStartingIRI(URI startingIRI) {
 		this.startingIRI = startingIRI;
 	}
+	
+	
+	
+	public String[] getSparqlStatisticFiles() {
+		return sparqlStatisticFiles;
+	}
+	public void setSparqlStatisticFiles(String[] sparqlStatisticFiles) throws IOException {
+		this.sparqlStatisticFiles = sparqlStatisticFiles;
+		this.stringSPARQLStatisticQueries = loadQueries(this.sparqlStatisticFiles);
+	}
+	public String[] getStringSPARQLStatisticQueries() {
+		return stringSPARQLStatisticQueries;
+	}
+	public void setStringSPARQLStatisticQueries(
+			String[] stringSPARQLStatisticQueries) {
+		this.stringSPARQLStatisticQueries = stringSPARQLStatisticQueries;
+	}
+
 	public String[] getSparqlFiles() {
 		return sparqlFiles;
 	}
 	public void setSparqlFiles(String[] sparqlFiles) throws IOException {
 		this.sparqlFiles = sparqlFiles;
-		this.loadQueries(this.sparqlFiles);
+		this.stringSPARQLqueries = loadQueries(this.sparqlFiles);
 	}
-	private void loadQueries(String[] sparqlFiles2) throws IOException {
-		this.stringSPARQLqueries = new String[this.sparqlFiles.length];
-		for(int i = 0; i<this.sparqlFiles.length;i++){
-			//this.stringSPARQLqueries [i] = FileUtils.readFile(this.sparqlFiles[i], StandardCharsets.UTF_8);
-			logger.debug("Trying to load "+this.sparqlFiles[i]);
-			InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(this.sparqlFiles[i]);
-			this.stringSPARQLqueries [i] = FileUtils.convertStreamToString(is);
+	protected static String [] loadQueries(String[] sparqlFiles) throws IOException {
+		String [] queriesAsString = new String[sparqlFiles.length];
+		for(int i = 0; i<sparqlFiles.length;i++){
+			logger.info("Trying to load "+sparqlFiles[i]);
+			InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(sparqlFiles[i]);
+			queriesAsString [i] = FileUtils.convertStreamToString(is);
 		}
-
+		return queriesAsString;
 	}
 	public String[] getStringSPARQLqueries() {
 		return stringSPARQLqueries;

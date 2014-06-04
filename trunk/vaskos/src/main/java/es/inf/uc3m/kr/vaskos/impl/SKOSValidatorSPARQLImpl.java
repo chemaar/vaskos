@@ -30,14 +30,17 @@ public class SKOSValidatorSPARQLImpl extends SKOSValidatorAdapter{
 
 		Model model = this.context.getBaseModel();
 		boolean valid = Boolean.TRUE;
+		String []sparqlFiles = this.context.getSparqlFiles();
 		for(int i = 0; valid && i<sparqlQueries.length;i++){
 			valid = valid && SPARQLUtils.runQuestion(model, sparqlQueries[i]);
 			if(!valid){
 				logger.info("This query has failed:");
 				logger.info(sparqlQueries[i]);
+				String template = SPARQLRulesLoader.getMessage(sparqlFiles[i]);
+				String text = template; //Change if needed
 				MessageTO message = new MessageTO();
 				message.setLevel(MessageType.ERROR);
-				message.setMessage(SPARQLRulesLoader.getMessage(this.context.getSparqlFiles()[i]));
+				message.setMessage(text);
 				this.context.getMessenger().getErrors().add(message);
 			}
 		}
