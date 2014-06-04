@@ -17,7 +17,7 @@ import java.util.List;
 })
 public class ResultTO {
 
-	private List<String> errors;
+	private List<DisplayMessageTO> errors;
 	private boolean valid;
 	private long time;
 	private long nanotime;
@@ -28,12 +28,7 @@ public class ResultTO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public List<String> getErrors() {
-		return errors;
-	}
-	public void setErrors(List<String> errors) {
-		this.errors = errors;
-	}
+	
 	public boolean isValid() {
 		return valid;
 	}
@@ -51,6 +46,16 @@ public class ResultTO {
 	}
 	public void setNanotime(long nanotime) {
 		this.nanotime = nanotime;
+	}
+
+
+	public List<DisplayMessageTO> getErrors() {
+		return errors;
+	}
+
+
+	public void setErrors(List<DisplayMessageTO> errors) {
+		this.errors = errors;
 	}
 	
 	

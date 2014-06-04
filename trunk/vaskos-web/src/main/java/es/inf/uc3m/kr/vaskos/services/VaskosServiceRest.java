@@ -19,10 +19,12 @@ import javax.ws.rs.core.Response;
 
 import com.sun.jersey.api.representation.FormParam;
 
+import es.inf.uc3m.kr.vaskos.services.to.DisplayMessageTO;
 import es.inf.uc3m.kr.vaskos.services.to.ResultTO;
 import es.inf.uc3m.kr.vaskos.to.MessageTO;
 import es.inf.uc3m.kr.vaskos.to.ValidationContext;
 import es.inf.uc3m.kr.vaskos.utils.SPARQLRulesLoader;
+import es.inf.uc3m.kr.vaskos.utils.SPARQLStatisticsLoader;
 import main.ValidatorAppServ;
 
 @Path("/vaskos")
@@ -80,26 +82,28 @@ public class VaskosServiceRest {
 		//This time is nanoseconds
 		result.setNanotime(context.getEndTime()-context.getStartTime());
 		result.setTime(TimeUnit.MILLISECONDS.convert(result.getNanotime(), TimeUnit.NANOSECONDS));
-		List<String> errors = messages2List(context.getMessenger().getErrors());
+		List<DisplayMessageTO> errors = messages2Display(context.getMessenger().getErrors());
 		result.setErrors(errors);
 	
 		return result;
 	}
 
-	private List<String> messages2List(List<MessageTO> messages){
-		List<String> stringMessages = new LinkedList<String>();
+	private List<DisplayMessageTO> messages2Display(List<MessageTO> messages){
+		List<DisplayMessageTO> displayMessages = new LinkedList<DisplayMessageTO>();
 		//FIXME: Move to Java 8 and use lambda expression
 		for(MessageTO message:messages){
-			stringMessages.add(message.getMessage());
+			displayMessages.add(new DisplayMessageTO(message.getMessage(),message.getLevel().name()));
 		}
-		return stringMessages;
+		return displayMessages;
 	}
 
 
 	private static ValidationContext createValidationContext(String urlFile) throws IOException {
 		ValidationContext vc = new ValidationContext();
 		vc.setUriFile(urlFile);
+		//FIXME: Extract?
 		vc.setSparqlFiles(SPARQLRulesLoader.getSPARQLRuleFiles());
+		vc.setSparqlStatisticFiles(SPARQLStatisticsLoader.getSPARQLStatisticsFiles());
 		return vc;
 	}
 
@@ -107,6 +111,7 @@ public class VaskosServiceRest {
 		ValidationContext vc = new ValidationContext();
 		vc.setLines(lines);
 		vc.setSparqlFiles(SPARQLRulesLoader.getSPARQLRuleFiles());
+		vc.setSparqlStatisticFiles(SPARQLStatisticsLoader.getSPARQLStatisticsFiles());
 		return vc;
 	}
 }
