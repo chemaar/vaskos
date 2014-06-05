@@ -4,11 +4,13 @@ package es.inf.uc3m.kr.vaskos.loader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 
 import org.apache.log4j.Logger;
 
 import com.hp.hpl.jena.util.FileUtils;
 
+import es.inf.uc3m.kr.vaskos.exception.VaskosModelException;
 import es.inf.uc3m.kr.vaskos.exceptions.ResourceNotFoundException;
 import es.inf.uc3m.kr.vaskos.to.KnowledgeResourcesTO;
 
@@ -33,9 +35,15 @@ public class StringResourceLoader  implements ResourceLoader {
 
 	public KnowledgeResourcesTO[] getKnowledgeResources() {
 		KnowledgeResourcesTO knowledgeResourcesTO = new KnowledgeResourcesTO();
-		InputStream knowledgeSourceData = new ByteArrayInputStream(content.getBytes());
-		knowledgeResourcesTO.setKnowledgeSourceData(knowledgeSourceData);
-		return  new KnowledgeResourcesTO[]{knowledgeResourcesTO};
+		InputStream knowledgeSourceData = null;
+		try {
+			knowledgeSourceData = new ByteArrayInputStream(content.getBytes("UTF-8"));
+			knowledgeResourcesTO.setKnowledgeSourceData(knowledgeSourceData);
+			return  new KnowledgeResourcesTO[]{knowledgeResourcesTO};
+		} catch (UnsupportedEncodingException e) {
+			throw new VaskosModelException(e);
+		}
+	
 	}
 
 

@@ -11,10 +11,15 @@ import org.apache.log4j.Logger;
 
 
 
+
+
 import com.hp.hpl.jena.rdf.model.Model;
 
+import es.inf.uc3m.kr.vaskos.exception.VaskosModelException;
 import es.inf.uc3m.kr.vaskos.utils.FileUtils;
 import es.inf.uc3m.kr.vaskos.utils.RDFSyntaxHelper;
+import es.inf.uc3m.kr.vaskos.utils.SPARQLRulesLoader;
+import es.inf.uc3m.kr.vaskos.utils.SPARQLStatisticsLoader;
 import es.inf.uc3m.kr.vaskos.utils.SPARQLUtils;
 
 public class ValidationContext {
@@ -50,6 +55,15 @@ public class ValidationContext {
 		this.shexFile = null;
 		this.startingIRI = URI.create("http://example.org/A");
 		this.format = RDFFormat.TURTLE;
+		try {
+			this.setSparqlFiles(SPARQLRulesLoader.getSPARQLRuleFiles());
+			this.setSparqlStatisticFiles(SPARQLStatisticsLoader.getSPARQLStatisticsFiles());
+		} catch (IOException e) {
+			this.setValid(Boolean.FALSE);
+			logger.error("Validating in "+this.getClass().getSimpleName()+" with context "+this);
+			throw new VaskosModelException(e);
+		}
+	
 	}
 	public String getLocalFile() {
 		return localFile;

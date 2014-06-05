@@ -18,7 +18,7 @@ public class SKOSStatisticsValidatorImplTest {
 	@Test
 	public void test() {
 		SKOSStatisticsValidatorImpl stats = new SKOSStatisticsValidatorImpl();
-		String urlFile = "file:///G://repositories/github/vaskos/trunk/vaskos/src/test/resources/skos/sparql/test/accepted/mountain-bike-simple.ttl";
+		String urlFile = "https://raw.githubusercontent.com/chemaar/vaskos/master/trunk/vaskos/src/test/resources/skos/sparql/test/accepted/mountain-bike-simple.ttl";
 		String[] sparqlFiles = SPARQLRulesLoader.getSPARQLRuleFiles();
 		String [] sparqlStatsFiles = SPARQLStatisticsLoader.getSPARQLStatisticsFiles();
 		ValidationContext context = createValidationContext(urlFile, sparqlFiles,sparqlStatsFiles);
