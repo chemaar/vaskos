@@ -1,0 +1,219 @@
+<html>
+<head>
+   <title>The VASKOS (VAlidation of SKOS based vocabularies) validator by UC3M</title>
+    <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+
+	
+<style>
+  #progress_bar {
+    margin: 10px 0;
+    padding: 3px;
+    border: 1px solid #000;
+    font-size: 14px;
+    clear: both;
+    opacity: 0;
+    -moz-transition: opacity 1s linear;
+    -o-transition: opacity 1s linear;
+    -webkit-transition: opacity 1s linear;
+  }
+  #progress_bar.loading {
+    opacity: 1.0;
+  }
+  #progress_bar .percent {
+    background-color: #99ccff;
+    height: auto;
+    width: 0;
+  }
+  
+
+</style>
+
+
+  </head>
+  <body>
+    <script src="http://code.jquery.com/jquery.js"></script>
+
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    
+    
+      <div class="container">
+
+       <div class="masthead">
+        <h3 class="muted">VASKOS (VAlidation of SKOS based vocabularies) by UC3M</h3>
+        <div class="navbar">
+          <div class="navbar-inner">
+            <div class="container">
+             <ul class="nav">
+                <li><a href="index.html">Home</a></li>
+                <li class="active"><a href="#">VASKOS validator</a></li>
+                <li><a href="documentation.html">Documentation</a></li>
+                <li><a href="credits.html">Credits</a></li>
+                <li><a href="contact.html">Contact</a></li>
+              </ul>             
+            </div>
+          </div>
+        </div><!-- /.navbar -->
+      </div>
+
+      <!-- Jumbotron -->
+      <div class="jumbotron">
+        <h1>VASKOS validator on-line!</h1>
+        <p class="lead">Select a file and validate!</p>
+       </div>
+
+     <hr>
+     
+	<h2>Load data...</h2>
+
+
+		<form role="form-horizontal" role="form">
+			 <div class="form-group">
+				<textarea class="input-block-level" rows="15" id="data"></textarea>
+			</div>
+		  <div class="form-group">
+		    <label for="uriFile">Input an URI:</label>
+		    <input type="url" class="input-xxlarge" id="uri" placeholder="URI...">
+		  </div>
+		  <div class="form-group">
+		    <label for="exampleInputFile">o select a local file:</label>		    
+		    <input type="file" id="files" name="file" />
+			<button onclick="abortRead();" class="btn btn-primary btn-lg">Clear</button>
+			<p class="help-block">Select a local file and load in the text area.</p>
+			<div id="progress_bar"><div class="percent">0%</div></div>
+		  </div>
+		 
+		    <button type="submit" class="btn btn-success btn-lg btn-block" disabled="disabled">Validate</button>
+		  
+		</form>
+
+
+
+		
+    	  <hr>
+      
+	      <div id="report">
+	 	  	<h2>Results...</h2>
+	   	
+			    <div class="alert alert-error">
+				</div>
+	       
+	         <hr>
+	   
+		    	 <div class="alert alert-success">
+			     </div>
+	   
+	         <hr>
+				<div class="alert alert-info">
+				</div>
+			</div>
+
+		<hr>
+          <div class="footer">
+		        <p style="text-align:center">
+		        	<a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">
+		        		<img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/88x31.png" /></a>
+		        		<br />
+		        		<span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">The VASKOS validator 
+		        		as part of a <a href="http://purl.org/krgroup/web">Knowledge Reuse</a> project</span> by 
+		        		<span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">
+		        		<a href="http://www.josemalvarez.es">Jose María Alvarez-Rodríguez</a> and 
+		        		<a href="http://purl.org/krgroup/web">the Knowledge Reuse Group</a></span> 
+		        		is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.
+		        </p>
+        
+        
+        
+     		 </div>
+        
+      </div>
+
+    </div> <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="./bootstrap/js/jquery.js"></script>
+    <script src="./bootstrap/js/bootstrap-transition.js"></script>
+    <script src="./bootstrap/js/bootstrap-alert.js"></script>
+    <script src="./bootstrap/js/bootstrap-modal.js"></script>
+    <script src="./bootstrap/js/bootstrap-dropdown.js"></script>
+    <script src="./bootstrap/js/bootstrap-scrollspy.js"></script>
+    <script src="./bootstrap/js/bootstrap-tab.js"></script>
+    <script src="./bootstrap/js/bootstrap-tooltip.js"></script>
+    <script src="./bootstrap/js/bootstrap-popover.js"></script>
+    <script src="./bootstrap/js/bootstrap-button.js"></script>
+    <script src="../bootstrap/js/bootstrap-collapse.js"></script>
+    <script src="../bootstrap/js/bootstrap-carousel.js"></script>
+    <script src="../bootstrap/js/bootstrap-typeahead.js"></script>
+    
+    
+ <script>
+  var reader;
+  var progress = document.querySelector('.percent');
+
+  function abortRead() {
+    reader.abort();
+  }
+
+  function errorHandler(evt) {
+    switch(evt.target.error.code) {
+      case evt.target.error.NOT_FOUND_ERR:
+        alert('File Not Found!');
+        break;
+      case evt.target.error.NOT_READABLE_ERR:
+        alert('File is not readable');
+        break;
+      case evt.target.error.ABORT_ERR:
+        break; // noop
+      default:
+        alert('An error occurred reading this file.');
+    };
+  }
+
+  function updateProgress(evt) {
+    // evt is an ProgressEvent.
+    if (evt.lengthComputable) {
+      var percentLoaded = Math.round((evt.loaded / evt.total) * 100);
+      // Increase the progress bar length.
+      if (percentLoaded < 100) {
+        progress.style.width = percentLoaded + '%';
+        progress.textContent = percentLoaded + '%';
+      }
+    }
+  }
+
+  function handleFileSelect(evt) {
+    // Reset progress indicator on new file selection.
+    progress.style.width = '0%';
+    progress.textContent = '0%';
+
+    reader = new FileReader();
+    reader.onerror = errorHandler;
+    reader.onprogress = updateProgress;
+    reader.onabort = function(e) {
+      alert('File read cancelled');
+    };
+    reader.onloadstart = function(e) {
+      document.getElementById('progress_bar').className = 'loading';
+    };
+    reader.onload = function(e) {
+      // Ensure that the progress bar displays 100% at the end.
+      progress.style.width = '100%';
+      progress.textContent = '100%';
+      setTimeout("document.getElementById('progress_bar').className='';", 2000);
+      if (e.target.readyState == FileReader.DONE) { // DONE == 2
+                document.getElementById('data').value = e.target.result;
+               
+          }  
+    }
+
+    reader.readAsText(evt.target.files[0], "UTF-8");
+  }
+
+  document.getElementById('files').addEventListener('change', handleFileSelect, false);
+</script>
+    
+  </body>
