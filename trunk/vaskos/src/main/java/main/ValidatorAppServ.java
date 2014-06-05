@@ -17,9 +17,9 @@ import es.inf.uc3m.kr.vaskos.to.ValidationContext;
 public class ValidatorAppServ {
 
 	public ValidationContext fullValidation (ValidationContext context){
-
+		long startTime = System.nanoTime();
+		ValidationContext endContext = context;
 		try {
-			context.setStartTime(System.nanoTime());
 			SKOSValidator statsValidator = new SKOSStatisticsValidatorImpl();
 			SKOSValidator coreValidator = new SKOSValidatorCoreBasicImpl();
 			SKOSValidator shexValidator = new SKOSValidatorShexImpl();
@@ -27,24 +27,26 @@ public class ValidatorAppServ {
 			statsValidator.setSuccessor(coreValidator);
 			coreValidator.setSuccessor(shexValidator);
 			shexValidator.setSuccessor(sparqlValidator);
-			ValidationContext endContext = statsValidator.validate(context);
-			endContext.setEndTime(System.nanoTime());
-			return endContext;
+			endContext  = statsValidator.validate(context);
 		}catch (VaskosModelException e) {
 			MessageTO error = new MessageTO(e.getMessage(), MessageType.ERROR);
-			context.getMessenger().getErrors().add(error );
-			context.setValid(Boolean.FALSE);
+			endContext.getMessenger().getErrors().add(error );
+			endContext.setValid(Boolean.FALSE);
 		}  
 		catch (IOException e) {
 			MessageTO error = new MessageTO(e.getMessage(), MessageType.ERROR);
-			context.getMessenger().getErrors().add(error );
-			context.setValid(Boolean.FALSE);
+			endContext.getMessenger().getErrors().add(error );
+			endContext.setValid(Boolean.FALSE);
 		}
-		return context;
+		endContext.setStartTime(startTime);
+		endContext.setEndTime(System.nanoTime());
+		return endContext;
 
 	}
 
 	public ValidationContext simpleValidation (ValidationContext context){
+		long startTime = System.nanoTime();
+		ValidationContext endContext = context;
 		try {
 			context.setStartTime(System.currentTimeMillis());
 			SKOSValidator statsValidator = new SKOSStatisticsValidatorImpl();
@@ -53,20 +55,20 @@ public class ValidatorAppServ {
 			statsValidator.setSuccessor(shexValidator);
 			shexValidator.setSuccessor(sparqlValidator);
 			//The validation must start in the first one
-			ValidationContext endContext = statsValidator.validate(context);
-			endContext.setEndTime(System.currentTimeMillis());
-			return endContext;
+			endContext = statsValidator.validate(context);
 		}catch (VaskosModelException e) {
 			MessageTO error = new MessageTO(e.getMessage(), MessageType.ERROR);
-			context.getMessenger().getErrors().add(error );
-			context.setValid(Boolean.FALSE);
+			endContext.getMessenger().getErrors().add(error );
+			endContext.setValid(Boolean.FALSE);
 		} 
 		catch (IOException e) {
 			MessageTO error = new MessageTO(e.getMessage(), MessageType.ERROR);
-			context.getMessenger().getErrors().add(error );
-			context.setValid(Boolean.FALSE);
+			endContext.getMessenger().getErrors().add(error );
+			endContext.setValid(Boolean.FALSE);
 		}
-		return context;
+		endContext.setStartTime(startTime);
+		endContext.setEndTime(System.nanoTime());
+		return endContext;
 
 	}
 
