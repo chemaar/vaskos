@@ -3,6 +3,8 @@ package es.inf.uc3m.kr.vaskos.services;
 
 
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -17,6 +19,7 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.hp.hpl.jena.rdf.model.Model;
 import com.sun.jersey.api.representation.FormParam;
 
 import es.inf.uc3m.kr.vaskos.services.to.DisplayMessageTO;
@@ -35,16 +38,27 @@ public class VaskosServiceRest {
 	@GET
 	@Path("hello")
 	@ProduceMime({"text/plain", "application/xml", "application/json"})
-	public String sayHello(){
+	public String sayHello(@QueryParam("name") String name){
 		try{
-			return "Hello";
+			return "Hello "+name;
 		}catch(Exception e){
 			throw new WebApplicationException(Response.Status.BAD_REQUEST);
 		}
 
 	}
 
+	@POST
+	@Path("hellop")
+	@ConsumeMime(MediaType.APPLICATION_FORM_URLENCODED)
+	@ProduceMime({"text/plain", "application/xml", "application/json"})
+	public String hellop(@FormParam("name") String name){
+		try{
+			return "Hello "+name;
+		}catch(Exception e){
+			throw new WebApplicationException(Response.Status.BAD_REQUEST);
+		}
 
+	}
 
 	@GET
 	@ProduceMime({"text/plain", "application/xml", "application/json"})
@@ -100,20 +114,15 @@ public class VaskosServiceRest {
 	}
 
 
-	private static ValidationContext createValidationContext(String urlFile) throws IOException {
+	private static ValidationContext createValidationContext(String urlFile){
 		ValidationContext vc = new ValidationContext();
 		vc.setUriFile(urlFile);
-		//FIXME: Extract?
-		vc.setSparqlFiles(SPARQLRulesLoader.getSPARQLRuleFiles());
-		vc.setSparqlStatisticFiles(SPARQLStatisticsLoader.getSPARQLStatisticsFiles());
 		return vc;
 	}
 
-	private static ValidationContext createValidationContextFromLines(String lines) throws IOException {
+	private static ValidationContext createValidationContextFromLines(String lines) {
 		ValidationContext vc = new ValidationContext();
 		vc.setLines(lines);
-		vc.setSparqlFiles(SPARQLRulesLoader.getSPARQLRuleFiles());
-		vc.setSparqlStatisticFiles(SPARQLStatisticsLoader.getSPARQLStatisticsFiles());
 		return vc;
 	}
 }

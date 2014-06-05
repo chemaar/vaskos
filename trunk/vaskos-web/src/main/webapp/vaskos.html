@@ -1,11 +1,13 @@
-<html>
+﻿<html>
 <head>
    <title>The VASKOS (VAlidation of SKOS based vocabularies) validator by UC3M</title>
     <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <script src="http://code.jquery.com/jquery.js"></script>
 
+    <script src="bootstrap/js/bootstrap.min.js"></script>
 	
 <style>
   #progress_bar {
@@ -27,16 +29,134 @@
     height: auto;
     width: 0;
   }
-  
+ </style> 
+ 
+ <script type="text/javascript" language="javascript">
+     function validate(event) {
+         event.preventDefault(); //Important otherwise form is submitted and the source code is executed.
+         var lines = $('#data').val();
+         var uri = $('#uri').val();
+         if (lines != '' && uri == '') {
+             var params = { data: lines };
+             $.ajax({
+                 type: "POST",
+                 url: "services/vaskos",
+                 data: $('#validationForm').serialize(),
+                 dataType: "text",
+                 headers: {
+                     Accept: "application/xml; charset=utf-8",
+                     "Content-Type": "application/x-www-form-urlencoded; charset=utf-8"
+                 },
+                 success: function (xml) {
+                     updateSuccess(xml);
+                 },
+                 error: function (e) {
+                     updateError(e)
+                 }
+             });
+         } else if (lines == '' && uri != '') {
+         $.ajax({
+             type: "GET",
+             url: "services/vaskos?uri=" + uri,
+             dataType: "text",
+             headers: {
+                 Accept: "application/xml; charset=utf-8",
+                 "Content-Type": "text/plain; charset=utf-8"
+             },
+             success: function (xml) {
+                 updateSuccess(xml);
 
-</style>
+             },
+             error: function (e) {
+                 updateError(e);
+             }
+         });
+         
+         
+         }
+
+     }
+
+     function updateError(e) {
+            $(".alert-error").empty();
+            var errorMessage = "<div class='alert alert-error alert-dismissable'>";
+            errorMessage += "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>";
+            errorMessage += JSON.stringify(e);
+            errorMessage += "</div>\n";
+            $(".alert-error").append(errorMessage);
+
+     }
+
+     function updateSuccess(xml) {
+         var valid = $(xml).find('valid').text();
+         var time = $(xml).find('time').text();
+         var nanotime = $(xml).find('nanotime').text();
+
+         if(valid=="true"){
+           $(".alert-success").empty();
+             var successMessage = "<div class='alert alert-success alert-dismissable'>";
+             successMessage += "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>";
+             successMessage += "<strong>Your SKOS data is valid!</strong>";
+             successMessage += "</div>\n";
+             $(".alert-success").append(successMessage);
+         }
+       
+
+         $(".alert-info").empty();
+         var infoMessages = "";
+
+         var timeMessage = "<div class='alert alert-info alert-dismissable'>";
+         timeMessage += "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>";
+         timeMessage += "<strong>Time (ms): " + time + " Nanotime (ns): " + nanotime + "</strong>";
+         timeMessage += "</div>\n";
+         infoMessages += timeMessage;
+
+         $(xml).find('info').each(function () {
+             var text = $(this).find('text').text();
+             var infoMessage = "<div class='alert alert-info alert-dismissable'>";
+             infoMessage += "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>";
+             infoMessage += text;
+             infoMessage += "</div>\n";
+             infoMessages += infoMessage;
+         });
+
+
+         $(".alert-info").append(infoMessages);
+
+
+         $(".alert-error").empty();
+         var errorMessages = "";
+         $(xml).find('errors').each(function () {
+             var text = $(this).find('text').text();
+             var errorMessage = "<div class='alert alert-error alert-dismissable'>";
+             errorMessage += "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>";
+             errorMessage += text;
+             errorMessage += "</div>\n";
+             errorMessages += errorMessage;
+         });
+         $(".alert-error").append(errorMessages);
+
+     }
+     function enableValidate() {
+         if ($('#uri').val() != '') {
+             $('#validateBtn').prop('disabled', false);
+         }
+
+     }
+
+     function checkValidate() {
+         if ($('#uri').val() != '') {
+             $('#validateBtn').prop('disabled', false);
+         } else {
+             $('#validateBtn').prop('disabled', true);
+         }
+
+     }
+</script>
 
 
   </head>
   <body>
-    <script src="http://code.jquery.com/jquery.js"></script>
-
-    <script src="bootstrap/js/bootstrap.min.js"></script>
     
     
       <div class="container">
@@ -69,27 +189,27 @@
 	<h2>Load data...</h2>
 
 
-		<form role="form-horizontal" role="form">
+		<form role="form-horizontal" role="form" id="validationForm">
 			 <div class="form-group">
-				<textarea class="input-block-level" rows="15" id="data"></textarea>
+				<textarea class="input-block-level" rows="15" id="data" name="data"></textarea>
 			</div>
 		  <div class="form-group">
 		    <label for="uriFile">Input an URI:</label>
-		    <input type="url" class="input-xxlarge" id="uri" placeholder="URI...">
+		    <input type="url" class="input-xxlarge" id="uri" placeholder="URI..." onfocus="checkValidate();" onkeyup="enableValidate();" name="uri">
 		  </div>
 		  <div class="form-group">
-		    <label for="exampleInputFile">o select a local file:</label>		    
+		    <label for="exampleInputFile">or select a local file:</label>		    
 		    <input type="file" id="files" name="file" />
 			<button onclick="abortRead();" class="btn btn-primary btn-lg">Clear</button>
 			<p class="help-block">Select a local file and load in the text area.</p>
 			<div id="progress_bar"><div class="percent">0%</div></div>
 		  </div>
 		 
-		    <button type="submit" class="btn btn-success btn-lg btn-block" disabled="disabled">Validate</button>
+		    <button onclick="validate(event);" type="submit" class="btn btn-success btn-lg btn-block" disabled="disabled" id="validateBtn">Validate</button>
 		  
 		</form>
 
-
+       
 
 		
     	  <hr>
@@ -97,16 +217,20 @@
 	      <div id="report">
 	 	  	<h2>Results...</h2>
 	   	
-			    <div class="alert alert-error">
-				</div>
+                  <div class="alert alert-success">
+			     </div>
 	       
 	         <hr>
+
+			    <div class="alert alert-error">
+				</div>
+
 	   
-		    	 <div class="alert alert-success">
-			     </div>
+		    	
 	   
 	         <hr>
 				<div class="alert alert-info">
+
 				</div>
 			</div>
 
@@ -156,6 +280,7 @@
 
   function abortRead() {
     reader.abort();
+    $('#validateBtn').prop('disabled', true);
   }
 
   function errorHandler(evt) {
@@ -205,8 +330,8 @@
       progress.textContent = '100%';
       setTimeout("document.getElementById('progress_bar').className='';", 2000);
       if (e.target.readyState == FileReader.DONE) { // DONE == 2
-                document.getElementById('data').value = e.target.result;
-               
+               document.getElementById('data').value = e.target.result;
+               $('#validateBtn').prop('disabled', false);
           }  
     }
 
