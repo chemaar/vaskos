@@ -32,8 +32,8 @@
         </div>
         <!-- Jumbotron -->
         <div class="jumbotron">
-            <h1>
-                VASKOS How to...</h1>
+            <h1>VASKOS...</h1>
+            <p class="lead">A brief introduction to the SKOS validator.</p>
         </div>
         <hr>
         <h2>
@@ -60,8 +60,15 @@
         </ul>
 
             <h3>ShEx schema...</h3>
+            <p>The shape created to validate SKOS-based vocabularies is available in the Github repository. You can check it out <a href="https://raw.githubusercontent.com/chemaar/vaskos/master/trunk/vaskos/src/main/resources/skos/shex/rules/skos-concept.shex">here (ShEx shapes)</a>.</p>
 
             <h3>SPARQL queries...</h3>
+            <p>In the same way, the SPARQL queries used to check some constraints of SKOS are also available in the Github repository.</p>
+            <ul>
+                <li><a href="https://github.com/chemaar/vaskos/tree/master/trunk/vaskos/src/main/resources/skos/sparql/rules">SPARQL queries</a></li>
+                <li><a href="https://raw.githubusercontent.com/chemaar/vaskos/master/trunk/vaskos/src/main/resources/es/inf/uc3m/kr/vaskos/utils/SPARQLRulesLoader.properties">Explanation of every SPARQL query</a></li>
+            </ul>
+            <p>Moreover we have also included some <a href="https://github.com/chemaar/vaskos/tree/master/trunk/vaskos/src/main/resources/skos/sparql/stats">SPARQL queries to easily extract statistics</a>.</p>
 
                 <h3>SKOS constraints...</h3>
         <p>
@@ -620,8 +627,30 @@
                 </tr>
             </tbody>
         </table>
-        <p>
-            As a final remak, we also plan to extend this approach to cover SKOS-XL or XSKOS specifications.</p>
+        <p>All these constraints can be found as <a href="https://github.com/chemaar/vaskos/tree/master/trunk/vaskos/src/test/resources/skos/test/sources">RDF Turtle files</a> in the Github repository.</p>
+        <h2>TO DO...</h2>
+        <p>As a final remak, we also plan to extend this approach to cover SKOS-XL or XSKOS specifications.</p>
+        <p>Furthermore we have also encountered some issues (maybe it is a lack of knowledge) to validate SKOS-based vocabularies using this approach:</p>
+        <ul>
+        <li>SPARQL 1.1 does not support the operator <code>disjoint</code> that is required to validate something like constraint <em>S13</em>. We have implemented this operator by using sub-queries.</li>
+        <li>ShEx as a language does not support restrictions on datatype properties. We cannot express that the value of an object it is a custom datatype.
+        <code>
+        :Potassium
+  skos:prefLabel "K"@en ;
+  skos:notation "K"^^&lt;ChemicalSymbolNotation&gt; .
+        </code>
+        
+        </li>
+        </ul>
+        <p>Other extensions could be:</p>
+        <ul>
+            <li>Support all RDF formats.</li>
+            <li>Validate against an OSLC resource shape not just ShEx.</li>
+            <li>Validate against a RDF repository or endpoint. This is not a big deal since it is only neccesary those triples that describe a <code>skos:Concept</code>.</li>
+            <li>Check the compliance of existing SKOS-based vocabularies.</li>
+            <li>Extend the parameters of the REST services.</li>
+            <li>...</li>
+        </ul>
         <hr />
         <h2>
             Using the REST service...</h2>

@@ -1,153 +1,223 @@
-<!DOCTYPE html>
 <html>
-<meta charset="utf-8">
-<style>
+<head>
+   <title>The VASKOS (VAlidation of SKOS based vocabularies) validator by UC3M</title>
+    <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <script src="http://code.jquery.com/jquery.js"></script>
 
-.node circle {
-  cursor: pointer;
-  stroke: #3182bd;
-  stroke-width: 1.5px;
-}
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+	
 
-.node text {
-  font: 10px sans-serif;
-  pointer-events: none;
-  text-anchor: middle;
-}
-
-line.link {
-  fill: none;
-  stroke: #9ecae1;
-  stroke-width: 1.5px;
-}
-
-</style>
-<body>
-<script src="http://d3js.org/d3.v3.min.js"></script>
-<script>
-
-var width = 960,
-    height = 500,
-    root;
-
-var force = d3.layout.force()
-    .linkDistance(80)
-    .charge(-120)
-    .gravity(.05)
-    .size([width, height])
-    .on("tick", tick);
-
-var svg = d3.select("body").append("svg")
-    .attr("width", width)
-    .attr("height", height);
-
-var link = svg.selectAll(".link"),
-    node = svg.selectAll(".node");
+ 
 
 
-function moveChildren(node) {
-    if(node.children) {
-        node.children.forEach(function(c) { moveChildren(c); });
-        node._children = node.children;
-        node.children = null;
-    }
-}
 
-d3.json("graph.json", function(error, json) {
-  root = json;  
-   update();
+  </head>
+  <body>
+    
+    
+      <div class="container">
 
-});
+       <div class="masthead">
+        <h3 class="muted">VASKOS (VAlidation of SKOS based vocabularies) by UC3M</h3>
+        <div class="navbar">
+          <div class="navbar-inner">
+            <div class="container">
+             <ul class="nav">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="vaskos.html">VASKOS validator</a></li>
+                <li><a href="documentation.html">Documentation</a></li>
+                <li class="active"><a href="#">Credits</a></li>
+                <li><a href="contact.html">Contact</a></li>
+              </ul>             
+            </div>
+          </div>
+        </div><!-- /.navbar -->
+      </div>
 
- function toggleAll(d) {
-    if (d.children) {
-      d.children.forEach(toggleAll);
-      click(d);
-    }
-  }
+      <!-- Jumbotron -->
+      <div class="jumbotron">
+        <h1>VASKOS validator on-line!</h1>
+        <p class="lead">Technology in use!</p>
+       </div>
 
-function update() {
-  var nodes = flatten(root),
-      links = d3.layout.tree().links(nodes);
+     <hr>
+     
+	<h2>Technology</h2>
+    <p>The VASKOS validator has been implemented by re-using the next tools, APIs and frameworks (alphabetically order).</p>
+     <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        Technology
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                 <tr>
+                    <td>
+                        <a href="https://jena.apache.org/">Apache JENA</a>
+                    </td>
+                    <td>
+                       Load, validate and reasoning over RDF files. Execute SPARQL queries.
+                    </td>
+                </tr>
 
-  // Restart the force layout.
-  force
-      .nodes(nodes)
-      .links(links)
-      .start();
+                   <tr>
+                    <td>
+                        <a href="http://owlapi.sourceforge.net/">OWL API</a>
+                    </td>
+                    <td>
+                       Load, validate and reasoning over RDF files. 
+                    </td>
+                </tr>
 
-  // Update links.
-  link = link.data(links, function(d) { return d.target.id; });
+                
+                   <tr>
+                    <td>
+                        <a href="http://skosapi.sourceforge.net/">SKOS API</a>
+                    </td>
+                    <td>
+                       Load and validate SKOS vocabularies.
+                    </td>
+                </tr>
 
-  link.exit().remove();
+                   <tr>
+                    <td>
+                        <a href="https://github.com/labra/ShExcala">ShExcala</a>
+                    </td>
+                    <td>
+                       ShEx processor in SCALA.
+                    </td>
+                </tr>
 
-  link.enter().insert("line", ".node")
-      .attr("class", "link");
+                   <tr>
+                    <td>
+                        Other Java and web technology.
+                    </td>
+                    <td>
+                       Maven, Jersey REST, Jquery, Bootstrap, etc.
+                    </td>
+                </tr>
 
-  // Update nodes.
-  node = node.data(nodes, function(d) { return d.id; });
+            </tbody>
+        </table>
 
-  node.exit().remove();
+		
+    	 
+		<hr>
+          <div class="footer">
+		        <p style="text-align:center">
+		        	<a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">
+		        		<img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/88x31.png" /></a>
+		        		<br />
+		        		<span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">The VASKOS validator 
+		        		as part of a <a href="http://purl.org/krgroup/web">Knowledge Reuse</a> project</span> by 
+		        		<span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">
+		        		<a href="http://www.josemalvarez.es">Jose María Alvarez-Rodríguez</a> and 
+		        		<a href="http://purl.org/krgroup/web">the Knowledge Reuse Group</a></span> 
+		        		is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.
+		        </p>
+        
+        
+        
+     		 </div>
+        
+      </div>
 
-  var nodeEnter = node.enter().append("g")
-      .attr("class", "node")
-      .on("click", click)
-      .call(force.drag);
+    </div> <!-- /container -->
 
-  nodeEnter.append("circle")
-      .attr("r", function(d) { return Math.sqrt(d.size) / 10 || 4.5; });
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="./bootstrap/js/jquery.js"></script>
+    <script src="./bootstrap/js/bootstrap-transition.js"></script>
+    <script src="./bootstrap/js/bootstrap-alert.js"></script>
+    <script src="./bootstrap/js/bootstrap-modal.js"></script>
+    <script src="./bootstrap/js/bootstrap-dropdown.js"></script>
+    <script src="./bootstrap/js/bootstrap-scrollspy.js"></script>
+    <script src="./bootstrap/js/bootstrap-tab.js"></script>
+    <script src="./bootstrap/js/bootstrap-tooltip.js"></script>
+    <script src="./bootstrap/js/bootstrap-popover.js"></script>
+    <script src="./bootstrap/js/bootstrap-button.js"></script>
+    <script src="../bootstrap/js/bootstrap-collapse.js"></script>
+    <script src="../bootstrap/js/bootstrap-carousel.js"></script>
+    <script src="../bootstrap/js/bootstrap-typeahead.js"></script>
+    
+    
+ <script>
+     var reader;
+     var progress = document.querySelector('.percent');
 
-  nodeEnter.append("text")
-      .attr("dy", ".35em")
-      .text(function(d) { return d.name; });
+     function clearURI() {
+         $('#uri').val = "";
+     }
+     function abortRead() {
+         reader.abort();
+         $('#validateBtn').prop('disabled', true);
+     }
 
-  node.select("circle")
-      .style("fill", color);
-      
-}
+     function errorHandler(evt) {
+         switch (evt.target.error.code) {
+             case evt.target.error.NOT_FOUND_ERR:
+                 alert('File Not Found!');
+                 break;
+             case evt.target.error.NOT_READABLE_ERR:
+                 alert('File is not readable');
+                 break;
+             case evt.target.error.ABORT_ERR:
+                 break; // noop
+             default:
+                 alert('An error occurred reading this file.');
+         };
+     }
 
-function tick() {
-  link.attr("x1", function(d) { return d.source.x; })
-      .attr("y1", function(d) { return d.source.y; })
-      .attr("x2", function(d) { return d.target.x; })
-      .attr("y2", function(d) { return d.target.y; });
+     function updateProgress(evt) {
+         // evt is an ProgressEvent.
+         if (evt.lengthComputable) {
+             var percentLoaded = Math.round((evt.loaded / evt.total) * 100);
+             // Increase the progress bar length.
+             if (percentLoaded < 100) {
+                 progress.style.width = percentLoaded + '%';
+                 progress.textContent = percentLoaded + '%';
+             }
+         }
+     }
 
-  node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
-}
+     function handleFileSelect(evt) {
+         // Reset progress indicator on new file selection.
+         progress.style.width = '0%';
+         progress.textContent = '0%';
 
-function color(d) {
-  return d._children ? "#3182bd" // collapsed package
-      : d.children ? "#c6dbef" // expanded package
-      : "#fd8d3c"; // leaf node
-}
+         reader = new FileReader();
+         reader.onerror = errorHandler;
+         reader.onprogress = updateProgress;
+         reader.onabort = function (e) {
+             alert('File read cancelled');
+         };
+         reader.onloadstart = function (e) {
+             document.getElementById('progress_bar').className = 'loading';
+         };
+         reader.onload = function (e) {
+             // Ensure that the progress bar displays 100% at the end.
+             progress.style.width = '100%';
+             progress.textContent = '100%';
+             setTimeout("document.getElementById('progress_bar').className='';", 2000);
+             if (e.target.readyState == FileReader.DONE) { // DONE == 2
+                 document.getElementById('data').value = e.target.result;
+                 $('#validateBtn').prop('disabled', false);
+             }
+         }
 
-// Toggle children on click.
-function click(d) {
-  if (d3.event.defaultPrevented) return; // ignore drag
-  if (d.children) {
-    d._children = d.children;
-    d.children = null;
-  } else {
-    d.children = d._children;
-    d._children = null;
-  }
-  update();
-}
+         reader.readAsText(evt.target.files[0], "UTF-8");
+     }
 
-// Returns a list of all nodes under the root.
-function flatten(root) {
-  var nodes = [], i = 0;
-
-  function recurse(node) {
-    if (node.children) node.children.forEach(recurse);
-    if (!node.id) node.id = ++i;
-    nodes.push(node);
-  }
-
-  recurse(root);
-  return nodes;
-}
-
+     document.getElementById('files').addEventListener('change', handleFileSelect, false);
 </script>
-</body>
-</html>
+    
+  </body>

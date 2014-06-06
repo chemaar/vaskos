@@ -82,6 +82,8 @@
 
          }
 
+         $('#report').show();
+
      }
 
      function updateError(e) {
@@ -204,7 +206,7 @@
      <hr>
      
 	<h2>Load data...</h2>
-
+    <p class="help-block">Currently TURTLE is the unique RDF syntax supported.</p>
 
 		<form role="form-horizontal" role="form" id="validationForm">
 			 <div class="form-group">
@@ -232,7 +234,7 @@
 		
     	  <hr>
       
-	      <div id="report">
+	      <div id="report" name="report" style="display:none">
 	 	  	<h2>Results...</h2>
 	   	
                   <div class="alert alert-success">
