@@ -37,7 +37,6 @@
          var lines = $('#data').val();
          var uri = $('#uri').val();
          if (lines != '' && uri == '') {
-             var params = { data: lines };
              $.ajax({
                  type: "POST",
                  url: "services/vaskos",
@@ -55,24 +54,32 @@
                  }
              });
          } else if (lines == '' && uri != '') {
-         $.ajax({
-             type: "GET",
-             url: "services/vaskos?uri=" + uri,
-             dataType: "text",
-             headers: {
-                 Accept: "application/xml; charset=utf-8",
-                 "Content-Type": "text/plain; charset=utf-8"
-             },
-             success: function (xml) {
-                 updateSuccess(xml);
+             $.ajax({
+                 type: "GET",
+                 url: "services/vaskos?uri=" + uri,
+                 dataType: "text",
+                 headers: {
+                     Accept: "application/xml; charset=utf-8",
+                     "Content-Type": "text/plain; charset=utf-8"
+                 },
+                 success: function (xml) {
+                     updateSuccess(xml);
 
-             },
-             error: function (e) {
-                 updateError(e);
-             }
-         });
-         
-         
+                 },
+                 error: function (e) {
+                     updateError(e);
+                 }
+             });
+
+
+         } else {
+             $(".alert-error").empty();
+             var errorMessage = "<div class='alert alert-error alert-dismissable'>";
+             errorMessage += "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>";
+             errorMessage += "Please use only one to send data: the text area or the URI.";
+             errorMessage += "</div>\n";
+             $(".alert-error").append(errorMessage);
+
          }
 
      }
@@ -88,27 +95,29 @@
      }
 
      function updateSuccess(xml) {
+
+         $(".alert-error").empty();
+         $(".alert-success").empty();
+         $(".alert-info").empty();
+
          var valid = $(xml).find('valid').text();
          var time = $(xml).find('time').text();
          var nanotime = $(xml).find('nanotime').text();
-
-         if(valid=="true"){
-           $(".alert-success").empty();
+         //Success Messages
+         if (valid == "true") {          
              var successMessage = "<div class='alert alert-success alert-dismissable'>";
              successMessage += "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>";
              successMessage += "<strong>Your SKOS data is valid!</strong>";
-             successMessage += "</div>\n";
+             successMessage += "</div>";
              $(".alert-success").append(successMessage);
          }
        
-
-         $(".alert-info").empty();
+       //Info Messages
          var infoMessages = "";
-
          var timeMessage = "<div class='alert alert-info alert-dismissable'>";
          timeMessage += "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>";
          timeMessage += "<strong>Time (ms): " + time + " Nanotime (ns): " + nanotime + "</strong>";
-         timeMessage += "</div>\n";
+         timeMessage += "</div>";
          infoMessages += timeMessage;
 
          $(xml).find('info').each(function () {
@@ -116,16 +125,23 @@
              var infoMessage = "<div class='alert alert-info alert-dismissable'>";
              infoMessage += "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>";
              infoMessage += text;
-             infoMessage += "</div>\n";
+             infoMessage += "</div>";
              infoMessages += infoMessage;
          });
 
 
          $(".alert-info").append(infoMessages);
 
+         //Error Messages
 
-         $(".alert-error").empty();
          var errorMessages = "";
+         if (valid != "true") {
+             var errorMessage = "<div class='alert alert-error alert-dismissable'>";
+             errorMessage += "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>";
+             errorMessage += "<strong>Your SKOS data is not valid!</strong>";
+             errorMessage += "</div>";
+             errorMessages += errorMessage;
+         }
          $(xml).find('errors').each(function () {
              var text = $(this).find('text').text();
              var errorMessage = "<div class='alert alert-error alert-dismissable'>";
@@ -134,18 +150,19 @@
              errorMessage += "</div>\n";
              errorMessages += errorMessage;
          });
+
          $(".alert-error").append(errorMessages);
 
      }
      function enableValidate() {
-         if ($('#uri').val() != '') {
+         if ($('#uri').val() != '' || $('#data').val() != '') {
              $('#validateBtn').prop('disabled', false);
          }
 
      }
 
      function checkValidate() {
-         if ($('#uri').val() != '') {
+         if ($('#uri').val() != '' || $('#data').val() != '') {
              $('#validateBtn').prop('disabled', false);
          } else {
              $('#validateBtn').prop('disabled', true);
@@ -191,11 +208,12 @@
 
 		<form role="form-horizontal" role="form" id="validationForm">
 			 <div class="form-group">
-				<textarea class="input-block-level" rows="15" id="data" name="data"></textarea>
+				<textarea class="input-block-level" rows="15" id="data" name="data" onfocus="checkValidate();" onkeyup="enableValidate();"></textarea>
 			</div>
 		  <div class="form-group">
 		    <label for="uriFile">Input an URI:</label>
 		    <input type="url" class="input-xxlarge" id="uri" placeholder="URI..." onfocus="checkValidate();" onkeyup="enableValidate();" name="uri">
+            <button onclick="clearURI();" class="btn btn-primary btn-lg">Clear URI</button>
 		  </div>
 		  <div class="form-group">
 		    <label for="exampleInputFile">or select a local file:</label>		    
@@ -278,6 +296,9 @@
   var reader;
   var progress = document.querySelector('.percent');
 
+  function clearURI() {
+      $('#uri').val="";
+  }
   function abortRead() {
     reader.abort();
     $('#validateBtn').prop('disabled', true);
