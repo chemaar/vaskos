@@ -69,6 +69,6 @@ start = <SkosConceptShape>  # A scheme concept validation starts with <SkosConce
 <ListOfCollectionsAndConcepts> {
 	rdf:rest (rdf:nil)
 		| rdf:first (<SkosConceptShape> <SkosCollectionShape>)
-		, rdf:rest @<ListOfConcepts>
+		, rdf:rest @<ListOfCollectionsAndConcepts>
 }
 
