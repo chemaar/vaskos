@@ -1,0 +1,1 @@
+web:  java $JAVA_OPTS -cp trunk/vaskos-web/target/classes:trunk/vaskos-web/target/dependency/* vaskos
