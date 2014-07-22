@@ -4,7 +4,7 @@
 	<groupId>es.uc3m.inf.kr</groupId>
 	<artifactId>vaskos</artifactId>
 	<packaging>jar</packaging>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 
 	<properties>
 		<org.springframework.version>2.5</org.springframework.version>
@@ -24,32 +24,14 @@
 			<artifactId>log4j</artifactId>
 			<version>1.2.14</version>
 		</dependency>
-	<!-- 
-		<dependency>
-			<groupId>commons-logging</groupId>
-			<artifactId>commons-logging</artifactId>
-			<version>1.0.3</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-lang</groupId>
-			<artifactId>commons-lang</artifactId>
-			<version>2.3</version>
-		</dependency>
- -->
+		<!-- <dependency> <groupId>commons-logging</groupId> <artifactId>commons-logging</artifactId> 
+			<version>1.0.3</version> </dependency> <dependency> <groupId>commons-lang</groupId> 
+			<artifactId>commons-lang</artifactId> <version>2.3</version> </dependency> -->
 
-		<!--Spring 
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring</artifactId>
-			<version>${org.springframework.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<version>3.1</version>
-		</dependency>
--->
+		<!--Spring <dependency> <groupId>org.springframework</groupId> <artifactId>spring</artifactId> 
+			<version>${org.springframework.version}</version> </dependency> <dependency> 
+			<groupId>org.apache.commons</groupId> <artifactId>commons-lang3</artifactId> 
+			<version>3.1</version> </dependency> -->
 		<dependency>
 			<groupId>org.apache.jena</groupId>
 			<artifactId>apache-jena-libs</artifactId>
@@ -68,19 +50,14 @@
 			<artifactId>distribution</artifactId>
 			<version>3.1</version>
 		</dependency>
-<!-- 
-		<dependency>
-			<groupId>com.github.ansell.pellet</groupId>
-			<artifactId>pellet-owlapiv3</artifactId>
-			<version>2.3.3</version>
-		</dependency>
- -->
+		<!-- <dependency> <groupId>com.github.ansell.pellet</groupId> <artifactId>pellet-owlapiv3</artifactId> 
+			<version>2.3.3</version> </dependency> -->
 		<!--Shex -->
 
 		<dependency>
 			<groupId>es.weso</groupId>
-			<artifactId>shexcala_2.10</artifactId>
-			<version>0.0.8</version>
+			<artifactId>shexcala_2.11</artifactId>
+			<version>0.1.7</version>
 			<type>jar</type>
 		</dependency>
 
@@ -92,15 +69,15 @@
 
 		<dependency>
 			<groupId>es.weso</groupId>
-			<artifactId>wesin_2.10</artifactId>
-			<version>0.1.2</version>
+			<artifactId>wesin_2.11</artifactId>
+			<version>0.1.6</version>
 		</dependency>
 
 
 		<dependency>
 			<groupId>org.scala-lang</groupId>
 			<artifactId>scala-library</artifactId>
-			<version>2.10.4</version>
+			<version>2.11.1</version>
 		</dependency>
 
 

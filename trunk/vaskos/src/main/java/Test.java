@@ -40,6 +40,8 @@ import es.weso.rdfgraph.nodes.IRI;
 import es.weso.rdfgraph.statements.RDFTriple;
 import es.weso.shex.PrefixMaps;
 import es.weso.rdf.RDFTriples;
+import es.weso.shex.Context;
+import es.weso.shex.Matcher;
 import es.weso.shex.Schema;
 import es.weso.shex.ShapeSyntax.ShEx;
 import es.weso.shex.Typing;
@@ -65,11 +67,18 @@ public class Test {
 		PrefixMap pm = loaded.get()._2;
 		RDFTriples rdftriples = new RDFTriples(null , pm);
 		RDF rdf = rdftriples.parse(rdfContent).get();
-		Result<Typing> result = Schema.matchSchema(iri, rdf, schema,true);
-		System.out.println(result.isValid());
-		System.out.println(result.isFailure());
 		
-		java.util.List<java.util.Map<IRI, java.util.Set<IRI>>> results = Scala2Java.convertRestultsToJava(result.run());
+		Matcher matcher = new Matcher(schema,rdf,false,false);
+
+		Result<Typing> result = matcher.matchAllIRIs_AllLabels();
+		//Result<Typing> result = Schema.matchSchema(iri, rdf, schema,true);
+		System.out.println("VALID:" +result.isValid());
+		System.out.println("FAILURE:"+result.isFailure());
+	
+
+		java.util.List<java.util.Map<IRI, java.util.Set<IRI>>> results = Scala2Java.convertRestultsToJava(result.run());		
+		
+		System.out.println(results.size());
 		for(java.util.Map<IRI, java.util.Set<IRI>> converted: results){
 			for(IRI key:converted.keySet()){
 				System.out.println(key.str());

@@ -5,6 +5,7 @@ import java.io.IOException;
 
 
 
+
 import org.apache.jena.riot.RDFFormat;
 import org.apache.log4j.Logger;
 
@@ -23,6 +24,7 @@ import es.weso.parser.PrefixMap;
 import es.weso.rdf.RDF;
 import es.weso.rdf.RDFTriples;
 import es.weso.rdfgraph.nodes.IRI;
+import es.weso.shex.Matcher;
 import es.weso.shex.Schema;
 import es.weso.shex.Typing;
 
@@ -57,7 +59,9 @@ public class SKOSValidatorShexImpl extends SKOSValidatorAdapter{
 			PrefixMap pm = loaded.get()._2;
 			RDFTriples rdftriples = new RDFTriples(null , pm);
 			RDF rdf = rdftriples.parse(rdfContent).get();
-			Result<Typing> result = Schema.matchSchema(this.iri, rdf, schema,false);
+			Matcher matcher = new Matcher(schema,rdf,false,false);
+			Result<Typing> result = matcher.matchIRI_AllLabels(this.iri);
+			//Result<Typing> result = Schema.matchSchema(this.iri, rdf, schema,false);
 			this.context.setValid(result.isValid());
 			if(this.context.isValid()){
 				//FIXME: Extract problems from shexscala
